@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/focus.css">
+    <link rel="stylesheet" href="css/body.css">
+    <link rel="stylesheet" href="css/login.css">
+    <script src="js/animate.js"></script>
+    <script src="js/focus.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/MD5.js"></script>
+    <script src="js/CouldMusic.js" type="module"></script>
+    <title>网易云音乐</title>
+</head>
+
+<body>
+    <!-- 头部模块 -->
+    <header class="w">
+        <!-- 头部模块左 -->
+        <ul>
+            <li>
+                <a href="index.html"><img src="images/网易云.png" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="images/箭头左.png" alt=""></a>
+                <a href="#"><img src="images/箭头右.png" alt=""></a>
+                <input type="search" placeholder="大家都在听">
+                <span class="one"><img src="images/搜索改.png" alt=""></span>
+                <a href="#" class="two"><img src="images/麦克风.png" alt=""></a>
+            </li>
+        </ul>
+        <!-- 头部模块右 -->
+        <ul>
+            <li>
+                <a href="#" class="touxiang"><img src="images/user.png" alt=""></a>
+            </li>
+            <li id="login">
+                <span>未登录</span><span></span>
+            </li>
+            <li>
+                <a href="#"><img src="images/cvip.png" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="images/个性装扮.png" alt=""></a>
+            </li>
+            <li>
+                <a href="#"><img src="images/设置.png" alt="" title="设置"></a>
+            </li>
+            <li>
+                <a href="#"><img src="images/邮件.png" alt=""></a>
+            </li>
+            <span class="three">
+                <a href="#"><img src="images/Star.png" alt=""></a>
+            </span>
+        </ul>
+    </header>
+    <!-- 发现音乐板块 -->
+    <div class="find">
+        <li><a href="#">个性推荐</a></li>
+        <li><a href="#">专属定制</a></li>
+        <li><a href="#">歌单</a></li>
+        <li><a href="#">排行榜</a></li>
+        <li><a href="#">歌手</a></li>
+        <li><a href="#">最新音乐</a></li>
+    </div>
+    <!-- 身体部分 -->
+    <div class="big">
+        <!-- 侧边栏 -->
+        <div class="big-l">
+            <li>
+                <a href="#">发现音乐</a>
+            </li>
+            <li>
+                <a href="#">博客</a>
+            </li>
+            <li>
+                <a href="#">视频</a>
+            </li>
+            <li>
+                <a href="#">关注</a>
+            </li>
+            <li>
+                <a href="#">直播</a>
+            </li>
+            <li>
+                <a href="#">私人FM</a>
+            </li>
+            <li>
+                我的音乐
+            </li>
+            <li>
+                <a href="#">本地与下载</a>
+            </li>
+            <li>
+                <a href="#">最近播放</a>
+            </li>
+            <li>
+                <a href="#">我的音乐云盘</a>
+            </li>
+            <li>
+                <a href="#">我的博客</a>
+            </li>
+            <li>
+                <a href="#">我的收藏</a>
+            </li>
+            <li>
+                <a href="#">创建的歌单 ></a>
+            </li>
+            <a href="#" class="add">+</a>
+        </div>
+        <!-- 主体部分 -->
+        <div class="big-r">
+            <div class="focus">
+                <!-- 左侧按钮 -->
+                <a href="javascript:;" class="arrow-l">
+                    &lt;
+                 </a>
+                <!-- 右侧按钮 -->
+                <a href="javascript:;" class="arrow-r"> &gt; </a>
+                <!-- 轮播图 -->
+                <ul>
+
+                    <li>
+                        <a href="#"><img src="upload/focus1.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="upload/focus2.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="upload/focus3.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="upload/focus4.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="upload/focus5.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="upload/focus6.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="upload/focus7.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="upload/focus8.jpg" alt=""></a>
+                    </li>
+                </ul>
+            </div>
+            <!-- 小圆圈 -->
+            <ol class="circle"></ol>
+            <!-- 登录界面 -->
+            <div class="login">
+                <div class="top">
+                    <a href="#"><img src="upload/二维码.png" alt=""></a>
+                    <a href="#" class="out"> <img src="upload/out.png" alt="" class="out"></a>
+                </div>
+                <img src="upload/body.png" alt="">
+                <div class="">
+                    <input type="text" placeholder="  请输入手机号" class="join">
+                    <input type="password" placeholder="  请输入密码" class="join">
+                    <a href="#" class="pass">重设密码</a>
+                    <a href="#"><img src="upload/自动登录.png" alt="" id="join"></a>
+                </div>
+                <div class="log">
+                    <button>登录</button>
+                    <a href="#">注册</a>
+                </div>
+                <div class="logo">
+                    <img src="./upload/微信1.png" alt="">
+                    <img src="./upload/qq1.png" alt="">
+                    <img src="./upload/厕所1.png" alt="">
+                    <img src="./upload/网易1.png" alt="">
+                </div>
+            </div>
+            <div class="rec"><a href="#">推荐歌单 ></a></div>
+            <div class="recommend">
+                <li>
+                    <a href="#">
+                        <span></span>
+                        <img src="" alt="">
+                        <div></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span></span>
+                        <img src="" alt="">
+                        <div></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span></span>
+                        <img src="" alt="">
+                        <div></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span></span>
+                        <img src="" alt="">
+                        <div></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span></span>
+                        <img src="" alt="">
+                        <div></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span></span>
+                        <img src="" alt="">
+                        <div></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span></span>
+                        <img src="" alt="">
+                        <div></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span></span>
+                        <img src="" alt="">
+                        <div></div>
+                    </a>
+                </li>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
