@@ -1,0 +1,93 @@
+.login {
+    display: none;
+    position: fixed;
+    width: 350px;
+    height: 530px;
+    top: 220px;
+    left: 835px;
+    background-color: #ffffff;
+    border: 1px red solid;
+    z-index: 2;
+}
+
+.top {
+    cursor: move;
+}
+
+.out {
+    position: absolute;
+    right: 0;
+}
+
+.login .join {
+    text-indent: .5em;
+    width: 260px;
+    height: 40px;
+    margin-left: 40px;
+    font-size: 20px;
+    border: 1px solid #dadada;
+}
+
+.login .join:nth-child(2) {
+    border-top: 0;
+}
+
+.login input::-webkit-input-placeholder {
+    color: #adadad;
+    font-size: 14px;
+}
+
+.pass {
+    position: absolute;
+    top: 255px;
+    right: 50px;
+    color: #b3b3b3;
+}
+
+#join {
+    position: absolute;
+    top: 290px;
+    left: 40px;
+}
+
+.log button {
+    position: absolute;
+    width: 260px;
+    height: 40px;
+    top: 320px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fef7f1;
+    font-size: 18px;
+    border: none;
+    border-radius: 2%;
+    background-color: #ea4848;
+    cursor: pointer;
+}
+
+.log button:hover {
+    background-color: #c72e2e;
+}
+
+.log a {
+    position: absolute;
+    top: 370px;
+    left: 50%;
+    color: #44413e;
+    text-decoration: underline;
+    transform: translateX(-50%);
+}
+
+.logo {
+    display: flex;
+    position: absolute;
+    justify-content: space-around;
+    width: 350px;
+    top: 400px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.logo img {
+    cursor: pointer;
+}

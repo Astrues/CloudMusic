@@ -1,0 +1,149 @@
+/* 身体部分 */
+
+
+/* 侧边栏 */
+
+.big {
+    position: relative;
+    justify-content: space-between;
+}
+
+.big-l {
+    position: fixed;
+    top: 75px;
+    left: 0;
+    width: 200px;
+    height: 800px;
+    background-color: #ffffff;
+}
+
+.big-l li {
+    margin: 12px;
+}
+
+.big-l a {
+    margin-left: 20px;
+    color: #313131;
+    font-size: 18px;
+}
+
+.big-l li:nth-child(1) a {
+    font-size: 20px;
+    font-weight: 700;
+    color: #313131;
+}
+
+.big>.big-l>li:hover {
+    background-color: #f6f6f7;
+}
+
+.big>li:nth-child(7) {
+    color: #999999;
+    background-color: #ffffff;
+}
+
+.big li:nth-child(13) {
+    background-color: #ffffff;
+}
+
+.big li:nth-child(13) a {
+    color: #999999;
+}
+
+.add {
+    position: fixed;
+    top: 550px;
+    left: 160px;
+    color: #2a2a2a;
+}
+
+.big-r {
+    position: absolute;
+    top: 75px;
+    left: 450px;
+    width: 1200px;
+    height: 800px;
+}
+
+.find {
+    position: fixed;
+    width: 2000%;
+    height: 60px;
+    top: 75px;
+    left: 200px;
+    z-index: 2;
+    background-color: #ffffff;
+}
+
+.find li {
+    float: left;
+    margin-left: 20px;
+    line-height: 60px;
+}
+
+.find li a {
+    color: #373737;
+    font-size: 20px;
+}
+
+.find li:nth-child(1) a {
+    font-size: 26px;
+    font-weight: 700;
+    border-bottom: 2px solid #ec4141;
+}
+
+.find li:hover a {
+    font-weight: 600;
+}
+
+.rec a {
+    font-size: 26px;
+    color: #373737;
+}
+
+.rec:hover a {
+    color: #000000;
+}
+
+.recommend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.recommend li {
+    position: relative;
+    margin-top: 20px;
+    flex: 20%;
+    margin-left: 30px;
+    margin-top: 30px;
+    height: 200px;
+    /* background-color: pink; */
+}
+
+.recommend li span {
+    position: absolute;
+    right: 35px;
+    color: #ffffff;
+    z-index: 1;
+}
+
+.recommend li img {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 205px;
+    height: 200px;
+}
+
+.recommend li div {
+    position: absolute;
+    left: 30px;
+    top: 200px;
+    font-size: 14px;
+    color: #373737;
+}
+
+.recommend li div:hover {
+    color: #000000;
+}

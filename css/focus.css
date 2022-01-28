@@ -1,0 +1,72 @@
+.big-r .focus {
+    position: relative;
+    margin-left: 200px;
+    width: 719px;
+    height: 390px;
+    overflow: hidden;
+}
+
+.big-r .focus ul {
+    position: absolute;
+    width: 1000%;
+}
+
+.big-r .focus li {
+    margin-top: 100px;
+    float: left;
+}
+
+.arrow-l,
+.arrow-r {
+    display: none;
+    position: absolute;
+    width: 24px;
+    height: 40px;
+    background: rgba(0, 0, 0, .3);
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+    font-family: 'icomoon';
+    font-size: 18px;
+    z-index: 1;
+}
+
+.arrow-l:hover,
+.arrow-r:hover {
+    color: red;
+}
+
+.arrow-l {
+    top: 220px;
+    left: 0;
+}
+
+.arrow-r {
+    top: 220px;
+    left: 697px;
+}
+
+.circle {
+    position: absolute;
+    top: 360px;
+    left: 500px;
+}
+
+.circle li {
+    float: left;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    margin-left: 2px;
+    cursor: pointer;
+}
+
+
+/* .circle li:hover {
+    background-color: #bc0b0b;
+} */
+
+.current {
+    background-color: #bc0b0b;
+}

@@ -1,0 +1,124 @@
+/* 头部模块 */
+
+
+/* 左 */
+
+header {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    height: 75px;
+    background-color: #ec4141;
+    z-index: 2;
+}
+
+header ul:nth-child(1) {
+    display: flex;
+    align-items: center;
+    width: 500px;
+    height: 75px;
+    /* background-color: purple; */
+}
+
+.one {
+    position: absolute;
+    top: -20px;
+    left: 70px;
+}
+
+.two {
+    position: absolute;
+    top: -20px;
+    left: 310px;
+}
+
+header ul:nth-child(1) li:nth-child(2) {
+    position: relative;
+}
+
+header ul:nth-child(1) li:nth-child(2) a:nth-child(1) {
+    position: absolute;
+    top: -15px;
+    left: -10px;
+}
+
+header ul:nth-child(1) li:nth-child(2) a:nth-child(2) {
+    position: absolute;
+    top: -15px;
+    left: 24px;
+}
+
+header ul:nth-child(1) li:nth-child(2) input {
+    position: absolute;
+    top: -20px;
+    left: 100px;
+}
+
+header input {
+    width: 200px;
+    height: 32px;
+    color: #f09e9e;
+    font-size: 14px;
+    line-height: 32px;
+    background-color: #e13e3e;
+    border-color: transparent;
+    border-radius: 0 20px 20px 0;
+    outline: none;
+}
+
+header input::-webkit-input-placeholder {
+    color: #f09e9e;
+    font-size: 14px;
+}
+
+
+/* 右 */
+
+header ul:nth-child(2) {
+    position: relative;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 320px;
+    height: 75px;
+    /* background-color: purple; */
+}
+
+header ul:nth-child(2) li {
+    flex: 1;
+    text-align: center;
+}
+
+header ul:nth-child(2) li:nth-child(2) {
+    flex: 2;
+    display: flex;
+    color: #facfcf;
+    cursor: pointer;
+}
+
+header ul:nth-child(2) li:nth-child(2):hover {
+    color: #ffffff;
+}
+
+header ul:nth-child(2) li:nth-child(2)::after {
+    content: "";
+    width: 0;
+    height: 0;
+    margin: auto;
+    /* transparent与rgba(0,0,0,0)等价 */
+    /* border-top: 10px solid rgba(0, 0, 0, 0);
+    border-right: 10px solid rgba(0, 0, 0, 0);
+    border-bottom: 10px solid rgba(0, 0, 0, 0);
+    border-left: 10px solid pink; */
+    /* 简便写法 */
+    border: 6px solid;
+    border-color: #f7b0b0 transparent transparent transparent;
+    font-size: 0;
+    line-height: 0;
+}
+
+.three {
+    position: absolute;
+    top: 10px;
+    left: 214px;
+}
