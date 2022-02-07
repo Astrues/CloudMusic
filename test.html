@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <title></title>
+
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+    <script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+
+<body>
+
+    <!--播放器-->
+
+    <audio id="song" autoplay="autoplay"></audio>
+
+    <!--整体结构-->
+
+    <div id="boxDiv">
+
+        <!--歌词展示区域-->
+
+        <div id="contentDiv">
+
+            <!--歌词显示-->
+
+            <div id="lrcDiv"></div>
+
+            <!--上部阴影-->
+
+            <span id="bgTopSpan"></span>
+
+            <!--下部阴影-->
+
+            <span id="bgBottomSpan"></span>
+
+        </div>
+
+        <!--控制区域-->
+
+        <div id="controlDiv">
+
+            <!--进度条-->
+
+            <div id="progressDiv"></div>
+
+            <!--进度条圆点-->
+
+            <img id="pointerImg" src="img/audio/progress_pointer@2x.png" />
+
+            <!--播放时间-->
+
+            <span id="playTimeSpan">00:00</span>
+
+            <!--歌曲标题-->
+
+            <span id="titleSpan"></span>
+
+            <!--总时间-->
+
+            <span id="totalTimeSpan">00:00</span>
+
+            <!--按钮区域-->
+
+            <div id="buttonDiv">
+
+                <!--上一首按钮-->
+
+                <img id="prevImg" src="img/audio/play_above_song@2x.png" />
+
+                <!--播放暂停按钮-->
+
+                <img id="playOrPauseImg" src="img/audio/play@2x.png" />
+
+                <!--下一首按钮-->
+
+                <img id="nextImg" src="img/audio/play_next_song@2x.png" />
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+
+接下来，编写style.css，代码如下： body{undefined margin: 0px; background-color: #ccc; } #boxDiv{undefined width: 375px; height: 568px; margin: 10px auto; position: relative; } #contentDiv{undefined width: 375px; height: 460px; background-image: url(../img/audio/play_bg@2x.png);
+overflow: hidden; } #lrcDiv{undefined margin-top: 260px; } #lrcDiv span{undefined display: block; line-height: 40px; text-align: center; color: white; font-size: 20px; } #bgTopSpan{undefined position: absolute; display: block; width: 375px; height: 30px;
+top: 0px; background-image: url(../img/audio/play_top_shadow@2x.png); } #bgBottomSpan{undefined top: 430px; position: absolute; background-image: url(../img/audio/play_bottom_shadow@2x.png); display: block; width: 375px; height: 30px; } #controlDiv{undefined
+width: 375px; height: 180px; position: relative; background-color: white; } #progressDiv{undefined background-color: red; height: 1.5px; width: 0px; } #pointerImg{undefined width: 18px; height: 18px; position: absolute; top: -8.5px; left: -3px; } #playTimeSpan{undefined
+display: block; position: absolute; font-size: 14px; width: 35px; top: 5px; left: 5px; } #totalTimeSpan{undefined display: block; position: absolute; font-size: 14px; width: 35px; top: 5px; left: 335px; } #titleSpan{undefined display: block; position:
+absolute; height: 30px; width: 295px; font-size: 20px; text-align: center; left: 40px; top: 5px; } #buttonDiv{undefined margin-top: 40px; position: relative; } #prevImg{undefined width: 40px; height: 40px; position: absolute; top: 20px; left: 60px; }
+#playOrPauseImg{undefined width: 70px; height: 70px; position: absolute; top: 5px; left: 152px; } #nextImg{undefined width: 40px; height: 40px; position: absolute; top: 20px; left: 275px; } 最后，编写common.js，代码如下： $(function(){undefined // 歌曲列表 var playList
+= ["红日", "狼的诱惑", "漂洋过海来看你"]; // 当前播放的歌曲序号 var currentIndex = 0; // 播放器的原生对象 var audio = $("#song")[0]; // 播放时间数组 var timeArr = []; // 歌词数组 var lrcArr = []; // 调用播放前设置 setup(); // 播放歌曲 playMusic(); // 播放歌曲 function playMusic(){undefined // 播放歌曲 audio.play();
+// 设置为暂停的图片 $("#playOrPauseImg").attr("src", "img/audio/pause@2x.png"); } // 歌曲播放前设置 function setup(){undefined // 设置播放哪一首歌曲 // img/audio/红日.mp3 audio.src = "img/audio/" + playList[currentIndex] + ".mp3"; // 设置歌曲的名字 $("#titleSpan").text(playList[currentIndex]);
+// 设置歌词 setLrc(); } // 设置歌词 function setLrc(){undefined // 清空上一首的歌词 $("#lrcDiv span").remove(); // 清空数组 timeArr = []; lrcArr = []; // 加载歌词文件 $.get("img/audio/" + playList[currentIndex] + ".lrc", {}, function(data){undefined if(data){undefined // 按行切割字符串
+var arr = data.split("n"); // 分割歌词 for (var i = 0; i
+< arr.length; i++) {undefined // 分割时间和歌词 var tempArr=a rr[i].split( "]"); if (tempArr.length> 1){undefined // 添加时间和歌词到数组 timeArr.push(tempArr[0]); lrcArr.push(tempArr[1]); } } // 显示歌词 for (var i = 0; i
+    < lrcArr.length; i++) {undefined $( "#lrcDiv").append( "<span>"+lrcArr[i]+ "</span>"); } } }); } // 播放暂停事件 $( "#playOrPauseImg").click(function(){undefined
+    // 如果播放器是暂停状态 if(audio.paused){undefined // 继续播放 playMusic(); }else{undefined // 暂停 audio.pause(); // 变成播放的图片 $( "#playOrPauseImg").attr( "src", "img/audio/play@2x.png"); } }); // 上一首 $( "#prevImg").click(function(){undefined // 如果是第一首，那么跳到最后一首 if(currentIndex==0
+        ){undefined currentIndex=p layList.length - 1; }else{undefined currentIndex--; } // 播放前设置 setup(); // 播放 playMusic(); }); // 下一首 $( "#nextImg").click(function(){undefined // 如果是最后一首，就跳到第一首 if(currentIndex==p layList.length - 1){undefined currentIndex=0
+        ; }else{undefined currentIndex++; } // 播放前设置 setup(); // 播放 playMusic(); }); // 监听播放器播放时间改变事件 audio.addEventListener( "timeupdate", function(){undefined // 当前播放时间 var currentTime=a udio.currentTime; // 总时间 var totalTime=a udio.duration; // 当是数字的时候
+        if(!isNaN(totalTime)){undefined // 得到播放时间与总时长的比值 var rate=c urrentTime / totalTime; // 设置时间显示 // 播放时间 $( "#playTimeSpan").text(getFormatterDate(currentTime)); // 总时长 $( "#totalTimeSpan").text(getFormatterDate(totalTime)); // 设置进度条 $(
+        "#progressDiv").css( "width", rate * 375 + "px"); // 设置进度圆点 $( "#pointerImg").css( "left", (375 - 15) * rate - 3 + "px"); // 设置歌词的颜色和内容的滚动 for (var i=0 ; i < timeArr.length - 1; i++) {undefined if(!isNaN(getTime(timeArr[i]))){undefined // 当前播放时间大于等于i行的时间，并且小于下一行的时间
+        if (currentTime>= getTime(timeArr[i]) && currentTime
+        < getTime(timeArr[i+1])){undefined // 当前行歌词变红色 $( "#lrcDiv span:eq("+i+ ")").css( "color", "#FF0000"); // 其他行歌词变白色 $( "#lrcDiv span:not(:eq("+i+ "))").css( "color", "#FFFFFF"); // 当前行歌词滚动 $( "#lrcDiv").stop(false,
+            true).animate({ "margin-top": 260 - 40 * i + "px"}, 1000); } } } } }); function getTime(timeStr){undefined // 去掉左边的[ var arr=t imeStr.split( "["); if(arr.length> 1){undefined // 得到右边的时间 var str = arr[1]; // 分割分、秒 var tempArr = str.split(":"); // 分 var m = parseInt(tempArr[0]); // 秒 var s = parseFloat(tempArr[1]); return m * 60 + s; } return 0; } // 格式化时间（00：00） function getFormatterDate(time){undefined
+            // 分 var m = parseInt(time / 60); // 秒 var s = parseInt(time % 60); // 补零 m = m > 9 ? m : "0" + m; s = s > 9 ? s : "0" + s; return m + ":" + s; } });

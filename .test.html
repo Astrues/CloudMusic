@@ -1,0 +1,104 @@
+<tr>
+    <td>
+        <span>01</span>
+        <span>ღ</span>
+        <span>↓</span>
+        <span>雅俗共赏</span>
+        <span>许嵩</span>
+        <span>有何不可</span>
+        <span>04:10</span>
+    </td>
+</tr>
+<tr>
+    <td>
+        <span>01</span>
+        <span>ღ</span>
+        <span>↓</span>
+        <span>雅俗共赏</span>
+        <span>许嵩</span>
+        <span>有何不可</span>
+        <span>04:10</span>
+    </td>
+</tr>
+<tr>
+    <td>
+        <span>01</span>
+        <span>ღ</span>
+        <span>↓</span>
+        <span>雅俗共赏</span>
+        <span>许嵩</span>
+        <span>有何不可</span>
+        <span>04:10</span>
+    </td>
+</tr>
+<tr>
+    <td>
+        <span>01</span>
+        <span>ღ</span>
+        <span>↓</span>
+        <span>雅俗共赏</span>
+        <span>许嵩</span>
+        <span>有何不可</span>
+        <span>04:10</span>
+    </td>
+</tr>
+<tr>
+    <td>
+        <span>01</span>
+        <span>ღ</span>
+        <span>↓</span>
+        <span>雅俗共赏</span>
+        <span>许嵩</span>
+        <span>有何不可</span>
+        <span>04:10</span>
+    </td>
+</tr>
+<tr>
+    <td>
+        <span>01</span>
+        <span>ღ</span>
+        <span>↓</span>
+        <span>雅俗共赏</span>
+        <span>许嵩</span>
+        <span>有何不可</span>
+        <span>04:10</span>
+    </td>
+</tr>
+<audio src="我的好兄弟.mp3" controls="controls" id="audio" style="width:500px; max-height:40px; background:#ccc">
+    您的老牛已经拉不动破车了，赶紧换了吧，想听中国好声音么？
+</audio>
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.slim.min.js
+"></script>
+<script>
+    var _audio = $('#audio')[0];
+
+    //默认的时候让所有的音频加载，否则在火狐ie等浏览器下由于jquery插件的存在导致onloadedmetadata事件不响应
+    _audio.load();
+
+    //音频加载完成后的一系列操作
+    function duration() {
+        if (_ReviewsBox.hasClass('homework-audio-loading')) {
+            return false;
+        }
+        var time = _audio.duration;
+        //分钟
+        var minute = time / 60;
+        var minutes = parseInt(minute);
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        //秒
+        var second = time % 60;
+        var seconds = Math.round(second);
+        if (seconds < 10) {
+            seconds = "0" + seconds;
+        }
+
+        //总共时长的秒数
+        var allTime = parseInt(minutes * 60 + seconds);
+    }
+
+    _audio.onloadedmetadata = duration;
+</script>

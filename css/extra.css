@@ -1,0 +1,282 @@
+/* .big-r,
+.find {
+    display: none;
+}
+*/
+
+.recom {
+    display: none;
+    position: absolute;
+    top: 75px;
+    left: 200px;
+    width: 1700px;
+    height: 800px;
+    background-color: #ffffff;
+    z-index: 2;
+}
+
+.introduce {
+    position: relative;
+}
+
+.icon1 img {
+    margin: 30px;
+    border-radius: 2%;
+}
+
+.icon2 {
+    height: 200px;
+}
+
+.icon2 li:nth-child(1) span:nth-child(1) {
+    position: absolute;
+    top: 42px;
+    left: 249px;
+}
+
+.icon2 li:nth-child(1) span:nth-child(2) {
+    position: absolute;
+    top: 33px;
+    left: 288px;
+    color: #373737;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.icon2 li:nth-child(2) {
+    position: absolute;
+    top: 65px;
+    left: 250px;
+}
+
+.icon2 li:nth-child(2) a:nth-child(1) {
+    position: absolute;
+}
+
+.icon2 li:nth-child(2) a:nth-child(2) {
+    margin-left: 30px;
+    color: #0b58b0;
+}
+
+.icon2 li:nth-child(2) span {
+    margin-left: 10px;
+    color: #676767;
+    cursor: default;
+}
+
+.icon2 li:nth-child(3) {
+    position: absolute;
+    top: 100px;
+    left: 250px;
+    height: 32px;
+}
+
+.icon2 li:nth-child(3) span {
+    float: left;
+}
+
+.icon2 li:nth-child(3) span:nth-child(1) {
+    border-radius: 15%;
+}
+
+.icon2 li:nth-child(3) span {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.icon2 li:nth-child(3) span:nth-child(2) {
+    width: 120px;
+    height: 32px;
+    border: 1px #d8d8d8 solid;
+    text-align: center;
+    border-radius: 16px;
+}
+
+.icon2 li:nth-child(3) span:nth-child(2) div {
+    line-height: 32px;
+}
+
+.icon2 li:nth-child(3) span:nth-child(3) {
+    width: 120px;
+    height: 32px;
+    border: 1px #d8d8d8 solid;
+    text-align: center;
+    border-radius: 16px;
+}
+
+.icon2 li:nth-child(3) span:nth-child(3) div {
+    line-height: 32px;
+}
+
+.icon2 li:nth-child(4) {
+    position: absolute;
+    top: 140px;
+    left: 250px;
+    cursor: default;
+}
+
+.icon2 li:nth-child(4) a {
+    color: #507daf;
+}
+
+.icon2 li:nth-child(5) {
+    position: absolute;
+    top: 165px;
+    left: 250px;
+    cursor: default;
+}
+
+.icon2 li:nth-child(5) span {
+    color: #676767;
+}
+
+.icon2 li:nth-child(6) {
+    position: absolute;
+    top: 190px;
+    left: 250px;
+    cursor: default;
+}
+
+.icon2 li:nth-child(6) span {
+    color: #676767;
+}
+
+.item {
+    position: absolute;
+    top: 250px;
+    left: 10px;
+    font-size: 16px;
+}
+
+.item span {
+    margin-left: 20px;
+}
+
+.itemk {
+    font-weight: 700;
+    border-bottom: 3px solid #ec4141;
+}
+
+.iteme {
+    font-weight: 700;
+    border-bottom: 3px solid #ec4141;
+}
+
+.trackIds thead tr th {
+    position: absolute;
+    top: 280px;
+    font-size: 14px;
+    color: #888888;
+    cursor: default;
+}
+
+.trackIds thead tr th:nth-child(1) {
+    left: 40px;
+}
+
+.trackIds thead tr th:nth-child(2) {
+    left: 100px;
+}
+
+.trackIds thead tr th:nth-child(3) {
+    left: 790px;
+}
+
+.trackIds thead tr th:nth-child(4) {
+    right: 560px;
+}
+
+.trackIds thead tr th:nth-child(5) {
+    right: 125px;
+}
+
+.trackIds>tbody {
+    position: absolute;
+    top: 300px;
+}
+
+.trackIds>tbody>tr>td>span:nth-child(1) {
+    margin-left: 0;
+}
+
+.trackIds>tbody>tr>td>span:nth-child(2) {
+    margin-left: 18px;
+}
+
+.trackIds>tbody>tr>td>span:nth-child(3) {
+    margin-left: 6px;
+}
+
+.trackIds>tbody>tr>td>span:nth-child(4) {
+    position: absolute;
+    left: 100px;
+}
+
+.trackIds>tbody>tr>td>span:nth-child(5) {
+    position: absolute;
+    left: 785px;
+}
+
+.trackIds>tbody>tr>td>span:nth-child(6) {
+    position: absolute;
+    left: 1110px;
+}
+
+.trackIds>tbody>tr>td>span:nth-child(7) {
+    margin-left: 1485px;
+}
+
+tbody>tr:nth-child(2n+1) {
+    background-color: #f9f9f9;
+}
+
+tbody>tr:hover {
+    background-color: #f0f1f2;
+}
+
+.item {
+    cursor: pointer;
+}
+
+.ooo img {
+    cursor: pointer;
+}
+
+tbody {
+    background-color: #ffffff;
+}
+
+.comments {
+    display: none;
+    position: relative;
+    background-color: pink;
+}
+
+.text {
+    position: absolute;
+    width: 1600px;
+    height: 70px;
+    top: -145px;
+    left: 10px;
+    outline: none;
+}
+
+.comments span {
+    position: absolute;
+    top: -70px;
+}
+
+.comments>span:nth-of-type(1) {
+    left: 10px;
+    font-size: 20px;
+}
+
+.comments>span:nth-of-type(2) {
+    left: 40px;
+    font-size: 20px;
+}
+
+.comments>span:nth-of-type(3) {
+    right: 100px;
+    font-size: 20px;
+}

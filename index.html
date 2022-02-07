@@ -11,15 +11,19 @@
     <link rel="stylesheet" href="css/focus.css">
     <link rel="stylesheet" href="css/body.css">
     <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/extra.css">
+    <script src="js/time.js"></script>
     <script src="js/animate.js"></script>
     <script src="js/focus.js"></script>
     <script src="js/login.js"></script>
     <script src="js/MD5.js"></script>
+    <script src="js/play.js"></script>
     <script src="js/CouldMusic.js" type="module"></script>
     <title>网易云音乐</title>
 </head>
 
 <body>
+    <audio src="" class="audio"></audio>
     <!-- 头部模块 -->
     <header class="w">
         <!-- 头部模块左 -->
@@ -30,7 +34,7 @@
             <li>
                 <a href="#"><img src="images/箭头左.png" alt=""></a>
                 <a href="#"><img src="images/箭头右.png" alt=""></a>
-                <input type="search" placeholder="大家都在听">
+                <input type="search" placeholder="大家都在听" class="search">
                 <span class="one"><img src="images/搜索改.png" alt=""></span>
                 <a href="#" class="two"><img src="images/麦克风.png" alt=""></a>
             </li>
@@ -235,6 +239,96 @@
                         <img src="" alt="">
                         <div></div>
                     </a>
+                </li>
+            </div>
+        </div>
+    </div>
+    <!-- 播放器 -->
+    <div class="play">
+        <div class="item1">
+            <span>
+                <img src="" alt="" class="musicPic">
+            </span>
+            <span>
+                <li>
+                    <li class="im">起风了</li>
+                    <li class="im"><a href="#"><img src="upload/爱心1.png" alt=""></a></li>
+                </li>
+                <li>买辣椒也用券</li>
+            </span>
+        </div>
+        <div class="item2">
+            <div class="top">
+                <div class="left"><a href="#">◀‖</a></div>
+                <div class="ooo">
+                    <img src="upload/暂停1.png" alt="">
+                </div>
+                <div class="right"> <a href="#">‖▶</a></div>
+                <audio src="" id="audio"></audio>
+            </div>
+            <div class="button">
+                <div></div>
+            </div>
+        </div>
+        <div class="item3"></div>
+    </div>
+    <!-- 推荐歌单详细内容 -->
+    <div class="recom">
+        <div class="introduce">
+            <div class="icon1"><img src="" alt=""></div>
+            <div class="icon2">
+                <li><span><img src="upload/歌单.png" alt=""></span><span></span></li>
+                <li>
+                    <a href="#"><img src="" alt=""></a>
+                    <a href="#"></a><span></span>
+                </li>
+                <li>
+                    <span><img src="upload/播放全部.png" alt=""></span>
+                    <span><div>+收藏()</div></span>
+                    <span><div>📣分享()</div></span>
+                    <span><img src="upload/下载全部.png" alt=""></span>
+                </li>
+                <li>标签: <a href="#">1</a> / <a href="#">2</a> / <a href="#">3</a></li>
+                <li>歌曲 : <span></span>&nbsp;&nbsp; 播放 : <span></span> </li>
+                <li>简介 : <span></span></li>
+            </div>
+        </div>
+        <div class="item">
+            <span class="iteme">歌曲列表</span>
+            <span>评论()</span>
+            <span>收藏者</span>
+        </div>
+        <div>
+            <!-- 歌曲列表 -->
+            <div class="track">
+                <table class="trackIds">
+                    <thead>
+                        <tr>
+                            <th>操作</th>
+                            <th>标题</th>
+                            <th>歌手</th>
+                            <th>专辑</th>
+                            <th>时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <!-- 评论 -->
+            <div class="comments">
+                <textarea name="" id="" cols="30" rows="10" class="text">
+
+                </textarea>
+                <span>@</span>
+                <span>#</span>
+                <span>评论</span>
+            </div>
+            <!-- 收藏者 -->
+            <div class="subscribers">
+                <li>
+                    <img src="" alt="">
+                    <span></span>
                 </li>
             </div>
         </div>

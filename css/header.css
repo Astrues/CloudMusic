@@ -9,7 +9,7 @@ header {
     justify-content: space-between;
     height: 75px;
     background-color: #ec4141;
-    z-index: 2;
+    z-index: 3;
 }
 
 header ul:nth-child(1) {

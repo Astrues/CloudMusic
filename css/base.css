@@ -1,11 +1,12 @@
 ﻿body {
+    position: relative;
     max-width: 100%;
     min-width: 920px;
     height: 2000px;
     margin: 0 auto;
     font: normal 14px/1.5 Tahoma, "Lucida Grande", Verdana, "Microsoft Yahei", STXihei, hei;
     color: #000;
-    background: #f5f5f5;
+    background: #ffffff;
     -webkit-tap-highlight-color: transparent;
     overflow-x: hidden;
 }
@@ -31,4 +32,97 @@ li {
 
 input {
     outline: none;
+}
+
+.play {
+    display: flex;
+    position: fixed;
+    justify-content: space-between;
+    height: 70px;
+    width: 100%;
+    bottom: 0;
+    background-color: #ffffff;
+    z-index: 3;
+}
+
+.item1,
+.item3 {
+    position: relative;
+    flex: 600px;
+    background-color: pink;
+}
+
+.item2 {
+    flex: 600px;
+    color: #ffffff;
+}
+
+.musicPic {
+    width: 48px;
+    height: 48px;
+    margin: 11px;
+    background-color: purple;
+}
+
+.item1 span:nth-child(2) {
+    position: absolute;
+}
+
+.item1 span:nth-child(2) .im {
+    margin-top: 15px;
+    margin-left: 8px;
+    float: left;
+    font-size: 16px;
+}
+
+.item2 .top {
+    position: relative;
+    text-align: center;
+}
+
+.left {
+    position: absolute;
+    top: 20px;
+    left: 267px;
+}
+
+.left a {
+    color: #333333;
+}
+
+.left:hover a {
+    color: #ef6767;
+}
+
+.ooo {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.right {
+    position: absolute;
+    top: 20px;
+    left: 350px;
+}
+
+.right a {
+    color: #333333;
+}
+
+.right:hover a {
+    color: #ef6767;
+}
+
+.item2 .button {
+    position: relative;
+    top: 60px;
+    left: 140px;
+}
+
+.item2 .button div {
+    width: 370px;
+    height: 3px;
+    background-color: #cdcdcd;
 }
