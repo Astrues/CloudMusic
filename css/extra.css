@@ -374,3 +374,65 @@ h5 {
 .say>li>span:nth-child(5):hover {
     color: #373737;
 }
+
+.studio {
+    display: none;
+    position: fixed;
+    width: 400px;
+    height: 791px;
+    background-color: #ffffff;
+    z-index: 5;
+    right: 0;
+    top: 75px;
+}
+
+h2 {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.studio>span:nth-of-type(1) {
+    margin-top: 20px;
+    margin-left: 20px;
+    color: #cccccc;
+}
+
+.studio>span:nth-of-type(2) {
+    float: right;
+    color: #507daf;
+    margin-right: 20px;
+}
+
+.studio>span:nth-of-type(3) {
+    float: right;
+    color: #333333;
+    margin-right: 20px;
+}
+
+.studio>div>li {
+    border-top: 1px solid #f3f3f3;
+    height: 25px;
+}
+
+.studio>div>li>span:nth-child(1) {
+    margin-left: 20px;
+}
+
+.studio>div>li>span:nth-child(2) {
+    border: 1px red solid;
+}
+
+.studio>div>li>span:nth-child(3) {
+    position: absolute;
+    left: 200px;
+}
+
+.studio>div>li>span:nth-child(4) {
+    position: absolute;
+    right: 100px;
+}
+
+.studio>div>li>span:nth-child(5) {
+    position: absolute;
+    right: 0;
+}

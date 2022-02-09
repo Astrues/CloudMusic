@@ -160,4 +160,5 @@ input {
     float: right;
     margin-right: 20px;
     margin-top: 25px;
+    cursor: pointer;
 }

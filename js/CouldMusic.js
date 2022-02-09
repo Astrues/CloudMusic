@@ -20,6 +20,20 @@ const rec = await fetch("http://redrock.udday.cn:2022/personalized?limit=8", {
         "Content-Type": "application/json",
     },
 });
+// 点击打开播放列表，并且点击歌单里面的+可以添加歌曲到播放列表
+let vlog = true
+document.querySelector(".musics").addEventListener("click", () => {
+    if (vlog) {
+        document.querySelector(".studio").style.display = 'block';
+        vlog = false;
+    } else {
+        document.querySelector(".studio").style.display = 'none';
+        vlog = true;
+    }
+});
+document.querySelector(".bofang").addEventListener("click", () => {
+
+});
 // 轮播图
 const banner = await res("/banner");
 const ban = await banner.json().then(value => { return value })
@@ -200,7 +214,15 @@ for (let i = 0; i < recommend.children.length; i++) {
             }
             mmm[4].innerHTML = nn();
             mmm[5].innerHTML = musc.songs[0].al.name;
-            mmm[6].innerHTML = '00:00'
+            const time = await muss(re1.playlist.trackIds[i].id);
+            console.log(time);
+            document.querySelector(".audio").src = time.data[0].url;
+            setTimeout(() => {
+                mmm[6].innerHTML = getMuc(document.querySelector(".audio").duration);
+            }, 1000);
+        }
+        for (let i = 0; i < re1.playlist.trackIds.length; i++) {
+
         }
         // 点击歌单歌曲更换播放器内容并播放
         for (let i = 0; i < re1.playlist.trackIds.length; i++) {
@@ -295,7 +317,7 @@ login.addEventListener("click", async() => {
             recommend.children[i].querySelector("span").innerHTML = "▷ " + parseInt(num) + "万";
         }
     }
-})
+});
 
 function res(api) {
     const a = fetch("http://redrock.udday.cn:2022" + api, {
@@ -332,5 +354,6 @@ function currentTime() {
         }, 2000);
     }, 2000);
 }
+// 通过歌曲id获得歌曲的详细信息(用的上的)并做成数值或者对象优化以下冗杂的代码,寄！！！！！明天记得写
 // ===========================  Test ============
 // 接口:http://redrock.udday.cn:2022

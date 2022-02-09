@@ -1,104 +1,50 @@
-<tr>
-    <td>
-        <span>01</span>
-        <span>ღ</span>
-        <span>↓</span>
-        <span>雅俗共赏</span>
-        <span>许嵩</span>
-        <span>有何不可</span>
-        <span>04:10</span>
-    </td>
-</tr>
-<tr>
-    <td>
-        <span>01</span>
-        <span>ღ</span>
-        <span>↓</span>
-        <span>雅俗共赏</span>
-        <span>许嵩</span>
-        <span>有何不可</span>
-        <span>04:10</span>
-    </td>
-</tr>
-<tr>
-    <td>
-        <span>01</span>
-        <span>ღ</span>
-        <span>↓</span>
-        <span>雅俗共赏</span>
-        <span>许嵩</span>
-        <span>有何不可</span>
-        <span>04:10</span>
-    </td>
-</tr>
-<tr>
-    <td>
-        <span>01</span>
-        <span>ღ</span>
-        <span>↓</span>
-        <span>雅俗共赏</span>
-        <span>许嵩</span>
-        <span>有何不可</span>
-        <span>04:10</span>
-    </td>
-</tr>
-<tr>
-    <td>
-        <span>01</span>
-        <span>ღ</span>
-        <span>↓</span>
-        <span>雅俗共赏</span>
-        <span>许嵩</span>
-        <span>有何不可</span>
-        <span>04:10</span>
-    </td>
-</tr>
-<tr>
-    <td>
-        <span>01</span>
-        <span>ღ</span>
-        <span>↓</span>
-        <span>雅俗共赏</span>
-        <span>许嵩</span>
-        <span>有何不可</span>
-        <span>04:10</span>
-    </td>
-</tr>
-<audio src="我的好兄弟.mp3" controls="controls" id="audio" style="width:500px; max-height:40px; background:#ccc">
-    您的老牛已经拉不动破车了，赶紧换了吧，想听中国好声音么？
-</audio>
-
-
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.slim.min.js
-"></script>
-<script>
-    var _audio = $('#audio')[0];
-
-    //默认的时候让所有的音频加载，否则在火狐ie等浏览器下由于jquery插件的存在导致onloadedmetadata事件不响应
-    _audio.load();
-
-    //音频加载完成后的一系列操作
-    function duration() {
-        if (_ReviewsBox.hasClass('homework-audio-loading')) {
-            return false;
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <meta name="renderer" content="webkit">
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        var time = _audio.duration;
-        //分钟
-        var minute = time / 60;
-        var minutes = parseInt(minute);
-        if (minutes < 10) {
-            minutes = "0" + minutes;
+        
+        html,
+        body {
+            height: 100%;
         }
-        //秒
-        var second = time % 60;
-        var seconds = Math.round(second);
-        if (seconds < 10) {
-            seconds = "0" + seconds;
+        
+        html {
+            overflow: hidden;
         }
+        
+        body {
+            overflow: auto;
+            width: calc(100vw + 20px);
+        }
+        
+        .page {
+            height: 10%;
+            border: 1px dashed;
+            width: 100vw;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            white-space: nowrap;
+        }
+    </style>
+</head>
 
-        //总共时长的秒数
-        var allTime = parseInt(minutes * 60 + seconds);
-    }
-
-    _audio.onloadedmetadata = duration;
-</script>
+<body>
+    <div class="page">
+        <p>我是文字啊啊啊啊啊th</p>
+        <p>我是文字啊啊啊啊啊th</p>
+        <p>我是文字啊啊啊啊啊th</p>
+        <p>我是文字啊啊啊啊啊th</p>
+        <p>我是文字啊啊啊啊啊th</p>
+        <p>我是文字啊啊啊啊啊th</p>
+        <p>我是文字啊啊啊啊啊th</p>
+        <p>我是文字啊啊啊啊啊th</p>
+        <p>我是文字啊啊啊啊啊th</p>
+    </div>
+</body>
