@@ -47,9 +47,6 @@ window.addEventListener("load", () => {
     }
     // 把ol里面的第一个小li设置类名为 current
     ol.children[0].className = "current";
-    // 克隆第一张图片，放到ul最后面
-    const first = ul.children[0].cloneNode(true);
-    ul.appendChild(first);
     // 点击右侧按钮，图片滚动一张
     var num = 0;
     // circle 控制小圆圈的播放

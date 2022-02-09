@@ -53,6 +53,10 @@
     position: absolute;
 }
 
+.icon2 li:nth-child(2) a:nth-child(1) img {
+    border-radius: 50%;
+}
+
 .icon2 li:nth-child(2) a:nth-child(2) {
     margin-left: 30px;
     color: #0b58b0;
@@ -195,6 +199,10 @@
     top: 300px;
 }
 
+.trackIds>tbody>tr>td {
+    cursor: default;
+}
+
 .trackIds>tbody>tr>td>span:nth-child(1) {
     margin-left: 0;
 }
@@ -249,34 +257,120 @@ tbody {
 .comments {
     display: none;
     position: relative;
-    background-color: pink;
+    /* background-color: pink; */
 }
 
 .text {
+    resize: none;
     position: absolute;
     width: 1600px;
     height: 70px;
     top: -145px;
     left: 10px;
     outline: none;
+    border: 1px solid#e5e5e5;
+    font-size: 16px;
 }
 
-.comments span {
+.comments>span {
     position: absolute;
     top: -70px;
+    cursor: default;
 }
 
 .comments>span:nth-of-type(1) {
     left: 10px;
     font-size: 20px;
+    color: #666666;
+}
+
+.comments>span:nth-of-type(1):hover {
+    color: #333333;
 }
 
 .comments>span:nth-of-type(2) {
     left: 40px;
     font-size: 20px;
+    color: #666666;
+}
+
+.comments>span:nth-of-type(2):hover {
+    color: #333333;
 }
 
 .comments>span:nth-of-type(3) {
     right: 100px;
-    font-size: 20px;
+    font-size: 16px;
+    width: 58px;
+    height: 28px;
+    border: 1px solid #d8d8d8;
+    border-radius: 15px;
+    text-align: center;
+    line-height: 28px;
+    cursor: pointer;
+}
+
+.comments>span:nth-of-type(3):hover {
+    background-color: #f2f2f2;
+}
+
+h5 {
+    background-color: 0;
+}
+
+.say>li {
+    position: relative;
+    height: 70px;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.say>li>span {
+    float: left;
+}
+
+.say>li>span:nth-child(1) img {
+    margin-top: 17px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.say>li>span:nth-child(2) {
+    font-size: 12px;
+    color: #507daf;
+    margin-top: 15px;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.say>li>span:nth-child(2):hover {
+    color: #0b58b0;
+}
+
+.say>li>span:nth-child(3) {
+    font-size: 12px;
+    margin-top: 15px;
+    margin-left: 5px;
+}
+
+.say>li>span:nth-child(4) {
+    font-size: 12px;
+    position: absolute;
+    top: 40px;
+    left: 50px;
+    color: #9f9f9f;
+    cursor: default;
+}
+
+.say>li>span:nth-child(5) {
+    display: none;
+    font-size: 12px;
+    position: absolute;
+    color: #676767;
+    cursor: pointer;
+    top: 40px;
+    right: 200px;
+}
+
+.say>li>span:nth-child(5):hover {
+    color: #373737;
 }

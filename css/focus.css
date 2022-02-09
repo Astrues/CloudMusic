@@ -8,7 +8,7 @@
 
 .big-r .focus ul {
     position: absolute;
-    width: 1000%;
+    width: 1200%;
 }
 
 .big-r .focus li {
@@ -69,4 +69,19 @@
 
 .current {
     background-color: #bc0b0b;
+}
+
+.focus>ul>li {
+    position: relative;
+}
+
+.focus>ul>li>span {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 70px;
+    height: 20px;
+    text-align: center;
+    background-color: #cc4a4a;
+    color: #ffffff;
 }

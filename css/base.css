@@ -49,7 +49,7 @@ input {
 .item3 {
     position: relative;
     flex: 600px;
-    background-color: pink;
+    /* background-color: pink; */
 }
 
 .item2 {
@@ -61,7 +61,7 @@ input {
     width: 48px;
     height: 48px;
     margin: 11px;
-    background-color: purple;
+    /* background-color: purple; */
 }
 
 .item1 span:nth-child(2) {
@@ -73,6 +73,19 @@ input {
     margin-left: 8px;
     float: left;
     font-size: 16px;
+    cursor: pointer;
+}
+
+.item1>span:nth-child(2)>li {
+    float: left;
+}
+
+.act {
+    position: absolute;
+    width: 200px;
+    top: 40px;
+    left: 10px;
+    cursor: pointer;
 }
 
 .item2 .top {
@@ -125,4 +138,26 @@ input {
     width: 370px;
     height: 3px;
     background-color: #cdcdcd;
+}
+
+.start {
+    color: #999999;
+    position: fixed;
+    top: 917px;
+    left: 730px;
+    z-index: 5;
+}
+
+.end {
+    color: #999999;
+    position: fixed;
+    top: 917px;
+    right: 715px;
+    z-index: 5;
+}
+
+.item3 span {
+    float: right;
+    margin-right: 20px;
+    margin-top: 25px;
 }
