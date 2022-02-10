@@ -379,7 +379,7 @@ h5 {
     display: none;
     position: fixed;
     width: 400px;
-    height: 791px;
+    height: 792px;
     background-color: #ffffff;
     z-index: 5;
     right: 0;
@@ -401,38 +401,82 @@ h2 {
     float: right;
     color: #507daf;
     margin-right: 20px;
+    cursor: pointer;
 }
 
 .studio>span:nth-of-type(3) {
     float: right;
     color: #333333;
     margin-right: 20px;
+    cursor: default;
 }
 
-.studio>div>li {
+.studio>div>p {
     border-top: 1px solid #f3f3f3;
     height: 25px;
+    cursor: pointer;
 }
 
-.studio>div>li>span:nth-child(1) {
+.studio>div>p:nth-child(2n+1) {
+    background-color: #f9f9f9;
+}
+
+.studio>div>p:hover {
+    background-color: #f4f4f4;
+}
+
+.studio>div>p>span:nth-child(1) {
+    float: left;
     margin-left: 20px;
 }
 
-.studio>div>li>span:nth-child(2) {
+.studio>div>p>span:nth-child(2) {
     border: 1px red solid;
+    margin-left: 10px;
 }
 
-.studio>div>li>span:nth-child(3) {
-    position: absolute;
-    left: 200px;
+.studio>div>p>span:nth-child(3) {
+    margin-left: 10px;
 }
 
-.studio>div>li>span:nth-child(4) {
-    position: absolute;
-    right: 100px;
+.studio>div>p>span:nth-child(4) {
+    margin-left: 10px;
 }
 
-.studio>div>li>span:nth-child(5) {
+.studio>div>p>span:nth-child(5) {
+    margin-left: 10px;
+}
+
+.page {
+    overflow-y: scroll;
+    overflow-x: scroll;
+    white-space: nowrap;
+    width: 400px;
+    height: 700px;
+}
+
+.page>div:nth-child(1) {
     position: absolute;
-    right: 0;
+    top: 200px;
+    left: 120px;
+    color: #9f9f9f;
+    font-size: 15px;
+    cursor: default;
+}
+
+.page>div:nth-child(2) {
+    position: absolute;
+    top: 250px;
+    left: 130px;
+    color: #9f9f9f;
+    cursor: default;
+}
+
+.page>div:nth-child(3) {
+    position: absolute;
+    top: 250px;
+    left: 172px;
+    color: #000000;
+    border-bottom: 1px solid #323232;
+    cursor: pointer;
 }

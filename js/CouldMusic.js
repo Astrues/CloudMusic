@@ -3,6 +3,10 @@ const track = document.querySelector(".track");
 const comments = document.querySelector(".comments");
 const subscribers = document.querySelector(".subscribers");
 const arr = [track, comments, subscribers];
+var page = document.querySelector(".page");
+const left = document.querySelector(".left");
+const right = document.querySelector(".right");
+var l, r;
 for (let i = 0; i < itemk.length; i++) {
     itemk[i].addEventListener("click", () => {
         for (let i = 0; i < itemk.length; i++) {
@@ -32,7 +36,40 @@ document.querySelector(".musics").addEventListener("click", () => {
     }
 });
 document.querySelector(".bofang").addEventListener("click", () => {
+    const trs = document.querySelector(".trackIds").querySelector("tbody").querySelectorAll("tr");
+    document.querySelector("tbody").querySelectorAll("tr")[0].click();
+    document.querySelector(".studio").querySelectorAll("span")[0].innerHTML = "共" + trs.length + "首";
+    for (let i = 0; i < trs.length; i++) {
+        let p = document.createElement("p");
+        for (let i = 0; i < 5; i++) {
+            let span = document.createElement("span");
+            p.appendChild(span);
+        }
+        page.appendChild(p);
+        page.querySelectorAll("p")[i].querySelectorAll("span")[0].innerHTML = trs[i].querySelector("td").querySelectorAll("span")[3].innerText;
+        page.querySelectorAll("p")[i].querySelectorAll("span")[1].innerHTML = " SQ";
+        page.querySelectorAll("p")[i].querySelectorAll("span")[2].innerHTML = trs[i].querySelector("td").querySelectorAll("span")[4].innerText;
+        page.querySelectorAll("p")[i].querySelectorAll("span")[3].innerHTML = "🔗";
+        page.querySelectorAll("p")[i].querySelectorAll("span")[4].innerHTML = trs[i].querySelector("td").querySelectorAll("span")[6].innerText;
+    };
+    for (let i = 0; i < trs.length; i++) {
+        document.querySelector(".page").querySelectorAll("p")[i].addEventListener("click", () => {
+            console.log(document.querySelector(".page").querySelectorAll("p")[i]);
+            document.querySelector("tbody").querySelectorAll("tr")[i].click();
+        })
+    }
+});
 
+// 点击清除播放列表
+document.querySelector(".clear").addEventListener("click", () => {
+    document.querySelector(".page").innerHTML = '';
+    for (let i = 0; i < 3; i++) {
+        let div = document.createElement("div");
+        page.appendChild(div);
+    }
+    page.querySelectorAll("div")[0].innerHTML = "你还没有添加任何歌曲!";
+    page.querySelectorAll("div")[1].innerHTML = "去首页";
+    page.querySelectorAll("div")[2].innerHTML = "发现音乐";
 });
 // 轮播图
 const banner = await res("/banner");
@@ -71,7 +108,7 @@ document.querySelector(".item1").querySelectorAll("span")[0].querySelector("img"
 var timer1 = setTimeout(() => {
     console.log(audio.duration);
     document.querySelector(".end").innerHTML = getMuc(audio.duration);
-}, 1000);
+}, 100);
 var timer2;
 play.addEventListener("click", () => {
     if (flag) {
@@ -89,19 +126,22 @@ play.addEventListener("click", () => {
         clearInterval(timer2);
     }
 
-})
+});
+// 上一首下一首
 
+// (2).下一首
 // 点击歌单获取歌单详细内容(未登录)
 const recom = document.querySelector(".recom");
 const introduce = document.querySelector(".introduce");
 const icon2 = document.querySelector(".icon2");
 for (let i = 0; i < recommend.children.length; i++) {
     recommend.children[i].addEventListener("click", async() => {
+        var j = i;
         document.querySelector(".find").style.display = 'none'
         recommend.style.display = 'none';
         recom.style.display = 'block';
-        const re = await res("/playlist/detail?s=30&id=" + music.result[i].id);
-        const re1 = await re.json().then(value => { return value });
+        var re = await res("/playlist/detail?s=30&id=" + music.result[i].id);
+        var re1 = await re.json().then(value => { return value });
         console.log(re1);
         introduce.querySelectorAll("div")[0].querySelector("img").src = re1.playlist.coverImgUrl + "?param=184y184";
         icon2.querySelectorAll("li")[0].querySelectorAll("span")[1].innerHTML = re1.playlist.name;
@@ -219,7 +259,7 @@ for (let i = 0; i < recommend.children.length; i++) {
             document.querySelector(".audio").src = time.data[0].url;
             setTimeout(() => {
                 mmm[6].innerHTML = getMuc(document.querySelector(".audio").duration);
-            }, 1000);
+            }, 100);
         }
         for (let i = 0; i < re1.playlist.trackIds.length; i++) {
 
@@ -238,14 +278,24 @@ for (let i = 0; i < recommend.children.length; i++) {
                 clearInterval(timer2);
                 flag = true;
                 play.click();
-
                 await setTimeout(() => {
                     audio.play();
                 }, 2000)
                 setTimeout(() => {
                     console.log(audio.duration);
                     document.querySelector(".end").innerHTML = getMuc(audio.duration);
-                }, 1000);
+                }, 100);
+                r = re1.playlist.trackIds[i + 1].id;
+                // (1).上一首
+                left.addEventListener("click", () => {
+                    if (i == 0) {
+                        tbody.querySelectorAll("tr")[re1.playlist.trackIds.length - 1].click();
+                        i = re1.playlist.trackIds.length - 1;
+                    } else {
+                        tbody.querySelectorAll("tr")[i - 1].click();
+                    }
+
+                });
             })
         }
     })
@@ -263,12 +313,12 @@ comments.querySelectorAll("span")[1].addEventListener("click", () => {
 const search = document.querySelector(".search");
 
 document.addEventListener("keyup", async(e) => {
-        if (e.keyCode === 13) {
-            const sear = await res("/cloudsearch?keywords=" + search.value);
-            console.log(sear.json());
-        }
-    })
-    // 登录模块
+    if (e.keyCode === 13) {
+        const sear = await res("/cloudsearch?keywords=" + search.value);
+        console.log(sear.json());
+    }
+});
+// 登录模块
 const login = document.querySelector(".log").querySelector("button");
 login.addEventListener("click", async() => {
     const phone = document.querySelectorAll(".join")[0].value;
@@ -355,5 +405,30 @@ function currentTime() {
     }, 2000);
 }
 // 通过歌曲id获得歌曲的详细信息(用的上的)并做成数值或者对象优化以下冗杂的代码,寄！！！！！明天记得写
+async function musSay(id) {
+    const obj = {};
+    const a = await fetch("http://redrock.udday.cn:2022/song/detail?ids=" + id);
+    const a1 = await a.json();
+    const b = await fetch("http://redrock.udday.cn:2022/song/url?id=" + id);
+    const b1 = await b.json();
+
+    function nn() {
+        let sum;
+        for (let i = 1; i < a1.songs[0].ar.length; i++) {
+            sum += " / " + a1.songs[0].ar[i].name
+        }
+        if (a1.songs[0].ar.length === 1) {
+            return a1.songs[0].ar[0].name;
+        } else {
+            return a1.songs[0].ar[0].name + sum;
+        }
+    };
+    obj.name = a1.songs[0].name; //歌曲名字
+    obj.acname = nn(); //歌手名字
+    obj.nikname = a1.songs[0].al.name; //专辑名字
+    obj.Picurl = a1.songs[0].al.Picurl; //音乐图片
+    obj.url = b1.data[0].url; //音乐url
+    return obj;
+}
 // ===========================  Test ============
 // 接口:http://redrock.udday.cn:2022
