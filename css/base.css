@@ -99,11 +99,12 @@ input {
     left: 267px;
 }
 
-.left a {
+.left span {
     color: #333333;
+    cursor: pointer;
 }
 
-.left:hover a {
+.left:hover span {
     color: #ef6767;
 }
 

@@ -105,10 +105,12 @@ var flag = true;
 audio.src = res5.data[0].url;
 document.querySelector(".item1").querySelectorAll("span")[0].querySelector("img").src = res6.songs[0].al.picUrl;
 // 播放暂停
-var timer1 = setTimeout(() => {
+// var timer1 = setTimeout(() => {
+audio.addEventListener("canplaythrough", () => {
     console.log(audio.duration);
     document.querySelector(".end").innerHTML = getMuc(audio.duration);
-}, 100);
+    // }, 100);
+})
 var timer2;
 play.addEventListener("click", () => {
     if (flag) {
@@ -125,7 +127,6 @@ play.addEventListener("click", () => {
         play.querySelector("img").src = "upload/暂停1.png"
         clearInterval(timer2);
     }
-
 });
 // 上一首下一首
 
@@ -230,7 +231,7 @@ for (let i = 0; i < recommend.children.length; i++) {
         }
         for (let i = 0; i < re1.playlist.trackIds.length; i++) {
             const musc = await mus(re1.playlist.trackIds[i].id);
-            console.log(musc);
+            // console.log(musc);
             let mmm = document.querySelector("tbody").querySelectorAll("tr")[i].querySelector("td").querySelectorAll("span");
             if ((i + 1) < 10) {
                 mmm[0].innerHTML = "0" + (i + 1);
@@ -255,47 +256,54 @@ for (let i = 0; i < recommend.children.length; i++) {
             mmm[4].innerHTML = nn();
             mmm[5].innerHTML = musc.songs[0].al.name;
             const time = await muss(re1.playlist.trackIds[i].id);
-            console.log(time);
+            // console.log(time);
+            // var arr = []
             document.querySelector(".audio").src = time.data[0].url;
-            setTimeout(() => {
-                mmm[6].innerHTML = getMuc(document.querySelector(".audio").duration);
-            }, 100);
-        }
-        for (let i = 0; i < re1.playlist.trackIds.length; i++) {
+            // document.querySelector(".audio").addEventListener("canplaythrough", function() {
 
+            document.querySelector(".audio").addEventListener("canplaythrough", function() {
+                    document.querySelector("tbody").querySelectorAll("tr")[i].querySelector("td").querySelectorAll("span")[6].innerHTML = getMuc(document.querySelector(".audio").duration)
+                })
+                // arr.push(getMuc(this.duration));
+                // });
         }
+        // console.log(arr);
         // 点击歌单歌曲更换播放器内容并播放
         for (let i = 0; i < re1.playlist.trackIds.length; i++) {
             tbody.querySelectorAll("tr")[i].addEventListener("click", async() => {
                 const musc = await mus(re1.playlist.trackIds[i].id);
-                console.log(musc.songs[0].al.picUrl);
+                // console.log(musc.songs[0].al.picUrl);
                 document.querySelector(".item1").querySelectorAll("span")[0].querySelector("img").src = musc.songs[0].al.picUrl;
                 document.querySelectorAll(".im")[0].innerHTML = musc.songs[0].name;
                 document.querySelector(".act").innerHTML = musc.songs[0].ar[0].name;
                 const jjj = await muss(re1.playlist.trackIds[i].id);
                 console.log(jjj);
                 audio.src = jjj.data[0].url;
-                clearInterval(timer2);
-                flag = true;
-                play.click();
-                await setTimeout(() => {
+                audio.addEventListener("canplaythrough", async() => {
+                    alert('1')
+                    clearInterval(timer2);
+                    flag = true;
+                    play.click();
+                    // await setTimeout(() => {
                     audio.play();
-                }, 2000)
-                setTimeout(() => {
+                    // }, 2000)
+                    // setTimeout(() => {
                     console.log(audio.duration);
                     document.querySelector(".end").innerHTML = getMuc(audio.duration);
-                }, 100);
-                r = re1.playlist.trackIds[i + 1].id;
-                // (1).上一首
-                left.addEventListener("click", () => {
-                    if (i == 0) {
-                        tbody.querySelectorAll("tr")[re1.playlist.trackIds.length - 1].click();
-                        i = re1.playlist.trackIds.length - 1;
-                    } else {
-                        tbody.querySelectorAll("tr")[i - 1].click();
-                    }
+                    // }, 100);
+                    console.log(i);
+                    // (1).上一首
+                    left.addEventListener("click", () => {
+                        if (i == 0) {
+                            tbody.querySelectorAll("tr")[re1.playlist.trackIds.length - 1].click();
+                            i = re1.playlist.trackIds.length - 1;
+                        } else {
+                            tbody.querySelectorAll("tr")[i - 1].click();
+                        }
+                        console.log(i);
+                    });
+                })
 
-                });
             })
         }
     })
@@ -411,6 +419,7 @@ async function musSay(id) {
     const a1 = await a.json();
     const b = await fetch("http://redrock.udday.cn:2022/song/url?id=" + id);
     const b1 = await b.json();
+    document.querySelector(".audio").src = b1.data[0].url;
 
     function nn() {
         let sum;
@@ -423,12 +432,23 @@ async function musSay(id) {
             return a1.songs[0].ar[0].name + sum;
         }
     };
-    obj.name = a1.songs[0].name; //歌曲名字
-    obj.acname = nn(); //歌手名字
-    obj.nikname = a1.songs[0].al.name; //专辑名字
-    obj.Picurl = a1.songs[0].al.Picurl; //音乐图片
-    obj.url = b1.data[0].url; //音乐url
+    document.querySelector(".audio").addEventListener("canplaythrough", function() {
+        const time = getMuc(document.querySelector(".audio").duration);
+        obj.name = a1.songs[0].name; //歌曲名字
+        obj.acname = nn(); //歌手名字
+        obj.nikname = a1.songs[0].al.name; //专辑名字
+        obj.Picurl = a1.songs[0].al.Picurl; //音乐图片
+        obj.url = b1.data[0].url; //音乐url
+        obj.time = time;
+    })
     return obj;
 }
+
+console.log(musSay(33894312));
+// 音频加载完毕后执行后续代码
+// myVideo.addEventListener("canplaythrough", function() {
+//     //要执行的函数内容
+//     alert("视频加载完毕");
+// });
 // ===========================  Test ============
 // 接口:http://redrock.udday.cn:2022
