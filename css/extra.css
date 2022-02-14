@@ -480,3 +480,19 @@ h2 {
     border-bottom: 1px solid #323232;
     cursor: pointer;
 }
+
+.lyric {
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #fcfcfd;
+    z-index: 6;
+}
+
+.lyric>div:nth-child(1)>img {
+    position: absolute;
+    top: 100px;
+    left: 270px;
+    border-radius: 50%;
+}

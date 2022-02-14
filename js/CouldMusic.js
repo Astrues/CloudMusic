@@ -105,11 +105,9 @@ var flag = true;
 audio.src = res5.data[0].url;
 document.querySelector(".item1").querySelectorAll("span")[0].querySelector("img").src = res6.songs[0].al.picUrl;
 // 播放暂停
-// var timer1 = setTimeout(() => {
 audio.addEventListener("canplaythrough", () => {
     console.log(audio.duration);
     document.querySelector(".end").innerHTML = getMuc(audio.duration);
-    // }, 100);
 })
 var timer2;
 play.addEventListener("click", () => {
@@ -130,7 +128,6 @@ play.addEventListener("click", () => {
 });
 // 上一首下一首
 
-// (2).下一首
 // 点击歌单获取歌单详细内容(未登录)
 const recom = document.querySelector(".recom");
 const introduce = document.querySelector(".introduce");
@@ -230,47 +227,31 @@ for (let i = 0; i < recommend.children.length; i++) {
             tbody.appendChild(tr);
         }
         for (let i = 0; i < re1.playlist.trackIds.length; i++) {
-            const musc = await mus(re1.playlist.trackIds[i].id);
-            // console.log(musc);
-            let mmm = document.querySelector("tbody").querySelectorAll("tr")[i].querySelector("td").querySelectorAll("span");
+            const musc = await musSay(re1.playlist.trackIds[i].id);
+            const mmm = document.querySelector("tbody").querySelectorAll("tr")[i].querySelector("td").querySelectorAll("span");
             if ((i + 1) < 10) {
                 mmm[0].innerHTML = "0" + (i + 1);
             } else {
                 mmm[0].innerHTML = (i + 1);
             }
+            audio.src = musc.url;
+            console.log(audio);
+            audio.addEventListener("canplaythrough", () => {
+                mmm[6].innerHTML = getMuc(audio.duration);
+            })
             mmm[1].innerHTML = "ღ";
             mmm[2].innerHTML = "↓";
-            mmm[3].innerHTML = musc.songs[0].name;
-            // 多个歌手判断
-            function nn() {
-                let sum;
-                for (let i = 1; i < musc.songs[0].ar.length; i++) {
-                    sum += " / " + musc.songs[0].ar[i].name
-                }
-                if (musc.songs[0].ar.length === 1) {
-                    return musc.songs[0].ar[0].name;
-                } else {
-                    return musc.songs[0].ar[0].name + sum;
-                }
-            }
-            mmm[4].innerHTML = nn();
-            mmm[5].innerHTML = musc.songs[0].al.name;
-            const time = await muss(re1.playlist.trackIds[i].id);
-            // console.log(time);
-            // var arr = []
-            document.querySelector(".audio").src = time.data[0].url;
-            // document.querySelector(".audio").addEventListener("canplaythrough", function() {
-
-            document.querySelector(".audio").addEventListener("canplaythrough", function() {
-                    document.querySelector("tbody").querySelectorAll("tr")[i].querySelector("td").querySelectorAll("span")[6].innerHTML = getMuc(document.querySelector(".audio").duration)
-                })
-                // arr.push(getMuc(this.duration));
-                // });
+            mmm[3].innerHTML = musc.name;
+            mmm[4].innerHTML = musc.acname;
+            mmm[5].innerHTML = musc.nikname;
+            // mmm[6].innerHTML = musc.time;
         }
         // console.log(arr);
         // 点击歌单歌曲更换播放器内容并播放
+        let x;
         for (let i = 0; i < re1.playlist.trackIds.length; i++) {
             tbody.querySelectorAll("tr")[i].addEventListener("click", async() => {
+                x = i;
                 const musc = await mus(re1.playlist.trackIds[i].id);
                 // console.log(musc.songs[0].al.picUrl);
                 document.querySelector(".item1").querySelectorAll("span")[0].querySelector("img").src = musc.songs[0].al.picUrl;
@@ -280,32 +261,34 @@ for (let i = 0; i < recommend.children.length; i++) {
                 console.log(jjj);
                 audio.src = jjj.data[0].url;
                 audio.addEventListener("canplaythrough", async() => {
-                    alert('1')
                     clearInterval(timer2);
                     flag = true;
                     play.click();
-                    // await setTimeout(() => {
                     audio.play();
-                    // }, 2000)
-                    // setTimeout(() => {
                     console.log(audio.duration);
                     document.querySelector(".end").innerHTML = getMuc(audio.duration);
-                    // }, 100);
-                    console.log(i);
-                    // (1).上一首
-                    left.addEventListener("click", () => {
-                        if (i == 0) {
-                            tbody.querySelectorAll("tr")[re1.playlist.trackIds.length - 1].click();
-                            i = re1.playlist.trackIds.length - 1;
-                        } else {
-                            tbody.querySelectorAll("tr")[i - 1].click();
-                        }
-                        console.log(i);
-                    });
+
                 })
 
             })
         }
+        // (1).上一首
+        let trs = tbody.querySelectorAll("tr");
+        left.addEventListener("click", async() => {
+            if (x == 0) {
+                trs[trs.length - 1].click();
+            } else {
+                trs[x - 1].click();
+            }
+        });
+        // (2).下一首
+        right.addEventListener("click", () => {
+            if (x == trs.length - 1) {
+                trs[0].click();
+            } else {
+                trs[x + 1].click();
+            }
+        })
     })
 }
 // 歌单评论
@@ -319,12 +302,129 @@ comments.querySelectorAll("span")[1].addEventListener("click", () => {
 
 // 搜索模块
 const search = document.querySelector(".search");
-
 document.addEventListener("keyup", async(e) => {
     if (e.keyCode === 13) {
         const sear = await res("/cloudsearch?keywords=" + search.value);
         console.log(sear.json());
     }
+});
+search.addEventListener("focus", () => {
+    document.addEventListener("keyup", async() => {
+        const sea = await res("/cloudsearch?keywords=" + search.value);
+        let data = await sea.json().then(value => { return value });
+        console.log(data);
+    })
+});
+// 热搜榜
+const rse = await res("/search/hot/detail");
+const rses = await rse.json().then(value => { return value });
+const serde = document.querySelector(".serde");
+const decial = document.querySelector(".decial");
+console.log(rses);
+const hot = document.querySelector(".hot");
+for (let i = 0; i < rses.data.length; i++) {
+    let li = document.createElement("li");
+    for (let i = 0; i < 5; i++) {
+        let span = document.createElement("span");
+        li.appendChild(span);
+    }
+    hot.appendChild(li);
+    hot.querySelectorAll("li")[i].querySelectorAll("span")[0].innerHTML = (i + 1);
+    hot.querySelectorAll("li")[i].querySelectorAll("span")[1].innerHTML = rses.data[i].searchWord;
+    hot.querySelectorAll("li")[i].querySelectorAll("span")[2].innerHTML = rses.data[i].score;
+    hot.querySelectorAll("li")[i].querySelectorAll("span")[3].innerHTML = rses.data[i].content;
+    let img = document.createElement("img");
+    if (rses.data[i].iconUrl !== null) {
+        hot.querySelectorAll("li")[i].querySelectorAll("span")[4].appendChild(img);
+        hot.querySelectorAll("li")[i].querySelectorAll("span")[4].querySelector("img").src = rses.data[i].iconUrl;
+    }
+    hot.querySelectorAll("li")[i].addEventListener("click", async function() {
+        document.querySelector(".find").style.display = 'none'
+        const sea = await res("/cloudsearch?keywords=" + rses.data[i].searchWord);
+        let data = await sea.json().then(value => { return value });
+        console.log(data);
+        document.querySelector(".big-r").style.display = 'none';
+        document.querySelector(".serde").style.display = 'block';
+        console.log(serde.querySelectorAll("span")[0]);
+        serde.querySelectorAll("div")[0].innerHTML = "搜索 " + this.querySelectorAll("span")[1].innerText;
+        for (let i = 0; i < data.result.songs.length; i++) {
+            let li = document.createElement("li");
+            decial.appendChild(li);
+            for (let i = 0; i < 8; i++) {
+                let span = document.createElement("span");
+                li.appendChild(span);
+            }
+            const hotser = await musSay(data.result.songs[i].id);
+            let nnn = decial.querySelectorAll("li")[i].querySelectorAll("span");
+            if ((i + 1) < 10) {
+                nnn[0].innerHTML = "0" + (i + 1);
+            } else {
+                nnn[0].innerHTML = (i + 1);
+            }
+            nnn[1].innerHTML = "ღ";
+            nnn[2].innerHTML = "↓";
+            nnn[3].innerHTML = hotser.name;
+            nnn[4].innerHTML = hotser.acname
+            nnn[5].innerHTML = hotser.nikname
+            nnn[6].innerHTML = await hotser.time;
+            nnn[7].innerHTML = "======"
+        }
+        // 点击列表音乐播放
+        let x;
+        let lis = decial.querySelectorAll("li")
+        for (let i = 0; i < lis.length; i++) {
+            document.querySelector(".decial").querySelectorAll("li")[i].addEventListener("click", async() => {
+                x = i;
+                const hotser = await musSay(data.result.songs[i].id);
+                console.log(hotser);
+                document.querySelector(".item1").querySelectorAll("span")[0].querySelector("img").src = hotser.Picurl;
+                document.querySelectorAll(".im")[0].innerHTML = hotser.name;
+                document.querySelector(".act").innerHTML = hotser.acname;
+                audio.src = hotser.url;
+                audio.addEventListener("canplaythrough", async() => {
+                    clearInterval(timer2);
+                    flag = true;
+                    play.click();
+                    audio.play();
+                    console.log(audio.duration);
+                    document.querySelector(".end").innerHTML = getMuc(audio.duration);
+                })
+            })
+        }
+        // (1).上一首
+        left.addEventListener("click", async() => {
+            if (x == 0) {
+                lis[lis.length - 1].click();
+            } else {
+                lis[x - 1].click();
+            }
+        });
+        // (2).下一首
+        right.addEventListener("click", () => {
+            if (x == lis.length - 1) {
+                lis[0].click();
+            } else {
+                lis[x + 1].click();
+            }
+        })
+    })
+}
+search.addEventListener("focus", () => {
+    document.querySelector(".look").style.display = "block";
+});
+search.addEventListener("blur", () => {
+    setTimeout(() => {
+        document.querySelector(".look").style.display = "none";
+    }, 100);
+});
+document.querySelector(".home").addEventListener("click", () => {
+    document.querySelector(".serde").style.display = 'none';
+});
+// 歌曲详细界面
+const lyric = document.querySelector(".lyric");
+document.querySelector(".musicPic").addEventListener("click", () => {
+    lyric.style.display = 'block';
+    lyric.querySelectorAll("div")[0].querySelector("img").src = document.querySelector(".musicPic").src + "?param=300y300";
 });
 // 登录模块
 const login = document.querySelector(".log").querySelector("button");
@@ -397,24 +497,8 @@ async function muss(id) {
     const a = await fetch("http://redrock.udday.cn:2022/song/url?id=" + id);
     return a.json().then(value => { return value });
 }
-// 获得音乐时间
-// (1).获得总时长
-function duration() {
-    setTimeout(() => {
-        return audio.duration;
-    }, 1000);
-}
-// (2).获得当前播放的时长
-function currentTime() {
-    setTimeout(() => {
-        setInterval(() => {
-            return audio.currentTime;
-        }, 2000);
-    }, 2000);
-}
 // 通过歌曲id获得歌曲的详细信息(用的上的)并做成数值或者对象优化以下冗杂的代码,寄！！！！！明天记得写
 async function musSay(id) {
-    const obj = {};
     const a = await fetch("http://redrock.udday.cn:2022/song/detail?ids=" + id);
     const a1 = await a.json();
     const b = await fetch("http://redrock.udday.cn:2022/song/url?id=" + id);
@@ -432,19 +516,22 @@ async function musSay(id) {
             return a1.songs[0].ar[0].name + sum;
         }
     };
+    let obj = {};
+    obj.name = a1.songs[0].name; //歌曲名字
+    obj.acname = nn(); //歌手名字
+    obj.nikname = a1.songs[0].al.name; //专辑名字
+    obj.Picurl = a1.songs[0].al.picUrl; //音乐图片
+    obj.url = b1.data[0].url; //音乐url
     document.querySelector(".audio").addEventListener("canplaythrough", function() {
-        const time = getMuc(document.querySelector(".audio").duration);
-        obj.name = a1.songs[0].name; //歌曲名字
-        obj.acname = nn(); //歌手名字
-        obj.nikname = a1.songs[0].al.name; //专辑名字
-        obj.Picurl = a1.songs[0].al.Picurl; //音乐图片
-        obj.url = b1.data[0].url; //音乐url
-        obj.time = time;
-    })
+        obj.time = getMuc(document.querySelector(".audio").duration);
+    });
+    // obj.time = getMuc(document.querySelector(".audio").duration);
+    // let newobj = Object.assign({}, obj);
     return obj;
 }
-
-console.log(musSay(33894312));
+const n = await musSay("33894312");
+console.log(n);
+console.log(n.name);
 // 音频加载完毕后执行后续代码
 // myVideo.addEventListener("canplaythrough", function() {
 //     //要执行的函数内容

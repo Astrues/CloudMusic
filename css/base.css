@@ -42,7 +42,7 @@ input {
     width: 100%;
     bottom: 0;
     background-color: #ffffff;
-    z-index: 3;
+    z-index: 7;
 }
 
 .item1,
@@ -121,11 +121,12 @@ input {
     left: 350px;
 }
 
-.right a {
+.right span {
     color: #333333;
+    cursor: pointer;
 }
 
-.right:hover a {
+.right:hover span {
     color: #ef6767;
 }
 
@@ -146,7 +147,7 @@ input {
     position: fixed;
     top: 917px;
     left: 730px;
-    z-index: 5;
+    z-index: 7;
 }
 
 .end {
@@ -154,12 +155,16 @@ input {
     position: fixed;
     top: 917px;
     right: 715px;
-    z-index: 5;
+    z-index: 7;
 }
 
 .item3 span {
     float: right;
     margin-right: 20px;
     margin-top: 25px;
+    cursor: pointer;
+}
+
+.musicPic:hover {
     cursor: pointer;
 }
