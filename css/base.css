@@ -130,16 +130,13 @@ input {
     color: #ef6767;
 }
 
-.item2 .button {
-    position: relative;
-    top: 60px;
-    left: 140px;
-}
-
-.item2 .button div {
-    width: 370px;
-    height: 3px;
-    background-color: #cdcdcd;
+.button {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    top: 826px;
+    left: 675px;
+    z-index: 10;
 }
 
 .start {
@@ -167,4 +164,32 @@ input {
 
 .musicPic:hover {
     cursor: pointer;
+}
+
+.scroll {
+    margin: 100px;
+    width: 370px;
+    height: 3px;
+    background: #ccc;
+    position: relative;
+}
+
+.bar {
+    width: 8px;
+    height: 8px;
+    background: #ec4141;
+    position: absolute;
+    top: -3px;
+    left: 0;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.mask {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #ff4e4e;
+    width: 0;
+    height: 3px;
 }

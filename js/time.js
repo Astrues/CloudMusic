@@ -34,7 +34,7 @@ function getT(timer) {
 function getMuc(timer) {
     var m = parseInt(timer / 60);
     m = m < 10 ? '0' + m : m;
-    var s = parseInt(timer % 60);
+    var s = Math.ceil(timer % 60);
     s = s < 10 ? '0' + s : s;
     return m + ":" + s;
 }
