@@ -349,6 +349,7 @@ for (let i = 0; i < rses.data.length; i++) {
     hot.querySelectorAll("li")[i].addEventListener("click", async function() {
         document.querySelector(".recom").style.display = 'none';
         document.querySelector(".find").style.display = 'none';
+
         const sea = await res("/cloudsearch?keywords=" + rses.data[i].searchWord);
         let data = await sea.json().then(value => { return value });
         console.log(data);
@@ -440,8 +441,15 @@ document.querySelector(".home").addEventListener("click", () => {
 });
 // 歌曲详细界面
 const lyric = document.querySelector(".lyric");
+let cb = true;
 document.querySelector(".musicPic").addEventListener("click", () => {
-    lyric.style.display = 'block';
+    if (cb) {
+        lyric.style.display = 'block';
+        cb = false;
+    } else {
+        lyric.style.display = 'none';
+        cb = true;
+    }
     lyric.querySelectorAll("div")[0].querySelector("img").src = document.querySelector(".musicPic").src + "?param=300y300";
 });
 // 进度条
@@ -471,18 +479,47 @@ bar.onmousedown = function(event) {
         window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
     }
 };
+document.onmouseup = function() {
+    document.onmousemove = null; //弹起鼠标不做任何操作
+};
 // 进度条随歌曲播放移动
-// audio.addEventListener("canplaythrough", () => {
 setInterval(() => {
     mask.style.width = parseInt(audio.currentTime / audio.duration * 370) + "px";
     bar.style.left = parseInt(audio.currentTime / audio.duration * 370) + "px"
 }, 1000);
-// });
-// 播放暂停
-// 
-document.onmouseup = function() {
-    document.onmousemove = null; //弹起鼠标不做任何操作
-};
+// 音量调整
+audio.addEventListener("canplaythrough", () => {
+    var an = document.querySelector(".an");
+    var ying = document.querySelector(".ying");
+    var zong = document.querySelector(".zong");
+    var antop = 0;
+    let bc = true;
+    console.log("---------------");
+    document.querySelector(".hear").addEventListener("click", () => {
+        if (bc) {
+            document.querySelector(".hears").style.display = 'block';
+            bc = false;
+        } else {
+            document.querySelector(".hears").style.display = 'none';
+            bc = true;
+        }
+        an.addEventListener("mousedown", () => {
+            document.onmousemove = function(e) {
+                antop = 875 - e.pageY;
+                console.log(antop);
+                if (antop <= 70 && antop >= 0) {
+                    an.style.top = 70 - antop + 'px';
+                    zong.style.height = 80 - antop + 'px';
+                    console.log(audio.volume);
+                    audio.volume = 1 - parseFloat(an.style.top) / 70;
+                }
+            }
+        })
+        document.onmouseup = function() {
+            document.onmousemove = null; //弹起鼠标不做任何操作
+        }
+    })
+});
 // 登录模块
 const login = document.querySelector(".log").querySelector("button");
 login.addEventListener("click", async() => {

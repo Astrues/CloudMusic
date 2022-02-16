@@ -65,6 +65,7 @@
                     barleft = 0;
                 else if (barleft > scroll.offsetWidth - bar.offsetWidth)
                     barleft = scroll.offsetWidth - bar.offsetWidth;
+                console.log(scroll.offsetWidth);
                 mask.style.width = barleft + 'px';
                 that.style.left = barleft + "px";
                 ptxt.innerHTML = "已经走了" + parseInt(barleft / (scroll.offsetWidth - bar.offsetWidth) * 100) + "%";

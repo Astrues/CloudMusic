@@ -496,3 +496,40 @@ h2 {
     left: 270px;
     border-radius: 50%;
 }
+
+.hears {
+    display: none;
+    position: fixed;
+    top: 790px;
+    right: 100px;
+    width: 30px;
+    height: 100px;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .3);
+    z-index: 7;
+}
+
+.ying {
+    position: absolute;
+    width: 4px;
+    height: 70px;
+    top: 10px;
+    left: 13px;
+    background-color: #ec4141;
+}
+
+.an {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: 0;
+    left: -3px;
+    border-radius: 50%;
+    background-color: #ec4141;
+    cursor: pointer;
+}
+
+.zong {
+    width: 4px;
+    height: 0;
+    background-color: #e6e6e6;
+}
