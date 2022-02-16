@@ -86,7 +86,7 @@
     font-size: 20px;
 }
 
-.find li:nth-child(1) a {
+.find li .itemkk {
     font-size: 26px;
     font-weight: 700;
     border-bottom: 2px solid #ec4141;

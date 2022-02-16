@@ -533,3 +533,62 @@ h2 {
     height: 0;
     background-color: #e6e6e6;
 }
+
+.park {
+    position: relative;
+    display: none;
+    width: 1700px;
+    top: 75px;
+    left: 200px;
+}
+
+.park>div {
+    position: relative;
+    float: left;
+    width: 206px;
+    height: 206px;
+    margin-top: 60px;
+    margin-left: 100px;
+    cursor: pointer;
+}
+
+.park>div>span:nth-child(1) {
+    position: absolute;
+    right: 5px;
+}
+
+.park>div>span:nth-child(2) {
+    display: none;
+    position: absolute;
+    font-size: 26px;
+    width: 40px;
+    height: 40px;
+    top: 150px;
+    right: 20px;
+    text-align: center;
+    line-height: 40px;
+    color: #ec4141;
+    background-color: #ffffff;
+    border-radius: 50%;
+}
+
+.lect {
+    display: none;
+    position: fixed;
+    width: 200px;
+    height: 300px;
+    top: 580px;
+    background-color: #ffffff;
+}
+
+.lect>li {
+    height: 40px;
+    font-size: 14px;
+    margin-left: 30px;
+    line-height: 40px;
+    cursor: pointer;
+}
+
+.lect>li:hover {
+    background-color: #f6f6f7;
+}

@@ -13,7 +13,6 @@ function getTime(timer) {
     s = s < 10 ? '0' + s : s;
     return year + '-' + month + '-' + dates + '创建';
 }
-console.log(getTime());
 
 function getT(timer) {
     var time = new Date(timer);

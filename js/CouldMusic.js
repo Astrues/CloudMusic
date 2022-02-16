@@ -24,6 +24,85 @@ const rec = await fetch("http://redrock.udday.cn:2022/personalized?limit=8", {
         "Content-Type": "application/json",
     },
 });
+// 登录模块
+var jack = false;
+var acound;
+var cookie;
+const login = document.querySelector(".log").querySelector("button");
+login.addEventListener("click", async() => {
+    jack = true;
+    const phone = document.querySelectorAll(".join")[0].value;
+    const password = hex_md5(document.querySelectorAll(".join")[1].value);
+    // const res1 = await res("/login/cellphone?phone=" + phone + "&md5_password=" + password);
+    // const res1 = await fetch("http://redrock.udday.cn:2022/login/cellphone?phone=" + phone + "&md5_password=" + password, {
+    const res1 = await fetch("http://redrock.udday.cn:2022/login/cellphone?phone=19946894418&md5_password=8a6f2805b4515ac12058e79e66539be9", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        // credentials: 'include'
+    })
+
+    let date = await res1.json().then(date => { return date; });
+    console.log(date);
+    cookie = date.cookie;
+    let token = date.token;
+    const res0 = await res("/login/refresh?cookie=" + cookie);
+    console.log(res0.json());
+    if (date.code !== 200) {
+        alert("密码错误或该手机号未注册");
+    } else {
+        const res2 = await res("/user/detail?uid=" + date.account.id + "&cookie=" + cookie);
+        let person = await res2.json().then(value => { return value; })
+        console.log(person);
+        const avatar = document.querySelector(".touxiang").querySelector("img");
+        const name = document.querySelector("#login").querySelectorAll("span")[0];
+        avatar.src = person.profile.avatarUrl + "?param=28y28";
+        name.innerHTML = person.profile.nickname;
+        const login = document.querySelector(".login");
+        login.style.display = "none";
+        // alert("欢迎使用网易云音乐青春版\(@^0^@)/");
+        // 每日歌曲推荐
+        const res3 = await res("/recommend/songs" + "?cookie=" + cookie);
+        console.log(res3.json());
+        // 每日推荐歌单
+        const res4 = await res("/recommend/resource?cookie=" + cookie);
+        const music1 = await res4.json(value => { return value });
+        console.log(music1);
+        const acoun = await res("/user/playlist?uid=1857911469");
+        acound = await acoun.json();
+        console.log(acound);
+        for (let i = 1; i < acound.playlist.length; i++) {
+            console.log(1);
+            let li = document.createElement("li");
+            lect.appendChild(li);
+            lect.querySelectorAll("li")[i].innerHTML = acound.playlist[i].name;
+        }
+        for (let i = 0; i < acound.playlist.length; i++) {
+            lect.querySelectorAll("li")[i].addEventListener("click", () => {})
+        }
+    }
+});
+// 我的歌单
+const lec = document.querySelector(".lec");
+const lect = document.querySelector(".lect");
+var lo = true;
+lec.addEventListener("click", () => {
+    if (lo) {
+        lect.style.display = "block";
+        lec.innerHTML = "创建的歌单 ∨"
+        lo = false
+    } else {
+        lect.style.display = "none";
+        lec.innerHTML = "创建的歌单 >"
+        lo = true;
+    }
+});
+lect.querySelectorAll("li")[0].addEventListener("click", async() => {
+    if (jack == false) {
+        alert("请先登录");
+    }
+});
 // 点击打开播放列表，并且点击歌单里面的+可以添加歌曲到播放列表
 let vlog = true
 document.querySelector(".musics").addEventListener("click", () => {
@@ -84,7 +163,6 @@ document.querySelector(".clear").addEventListener("click", () => {
 // 轮播图
 const banner = await res("/banner");
 const ban = await banner.json().then(value => { return value })
-console.log(ban);
 for (let i = 0; i < ban.banners.length; i++) {
     document.querySelector(".focus").querySelector("ul").querySelectorAll("li")[i].querySelector("a").querySelector("img").src = ban.banners[i].imageUrl + "?param=720y280";
     document.querySelector(".focus").querySelector("ul").querySelectorAll("li")[i].querySelector("span").innerHTML = ban.banners[i].typeTitle;
@@ -95,7 +173,6 @@ document.querySelector(".focus").querySelector("ul").appendChild(first);
 // 推荐歌单
 const recommend = document.querySelector(".recommend");
 let music = await rec.json().then(value => { return value; });
-console.log(music);
 recommend.children[0].querySelector("img").src = "../upload/推荐歌曲.png";
 recommend.children[0].querySelector("span").innerHTML = "每日歌曲推荐";
 for (let i = 0; i < recommend.children.length; i++) {
@@ -107,10 +184,8 @@ for (let i = 0; i < recommend.children.length; i++) {
 // 播放器
 const res5 = await muss("1472599278");
 const res6 = await mus("1472599278");
-console.log(res5);
 const play = document.querySelector(".ooo");
 const audio = document.querySelector("#audio");
-console.log(audio);
 var flag = true;
 audio.src = res5.data[0].url;
 document.querySelector(".item1").querySelectorAll("span")[0].querySelector("img").src = res6.songs[0].al.picUrl;
@@ -144,8 +219,17 @@ for (let i = 0; i < recommend.children.length; i++) {
         document.querySelector(".find").style.display = 'none'
         recommend.style.display = 'none';
         recom.style.display = 'block';
-        var re = await res("/playlist/detail?s=30&id=" + music.result[i].id);
-        var re1 = await re.json().then(value => { return value });
+        var re1;
+        if (jack) {
+            const res4 = await res("/recommend/resource?cookie=" + cookie);
+            const music1 = await res4.json(value => { return value });
+            var re3 = await res("/playlist/detail?s=30&id=" + music1.recommend[i].id);
+            re1 = await re3.json().then(value => { return value });
+        } else {
+            var re = await res("/playlist/detail?s=30&id=" + music.result[i].id);
+            var re2 = await re.json().then(value => { return value });
+            re1 = re2;
+        }
         console.log(re1);
         introduce.querySelectorAll("div")[0].querySelector("img").src = re1.playlist.coverImgUrl + "?param=184y184";
         icon2.querySelectorAll("li")[0].querySelectorAll("span")[1].innerHTML = re1.playlist.name;
@@ -328,7 +412,6 @@ const rse = await res("/search/hot/detail");
 const rses = await rse.json().then(value => { return value });
 const serde = document.querySelector(".serde");
 const decial = document.querySelector(".decial");
-console.log(rses);
 const hot = document.querySelector(".hot");
 for (let i = 0; i < rses.data.length; i++) {
     let li = document.createElement("li");
@@ -441,6 +524,9 @@ document.querySelector(".home").addEventListener("click", () => {
 });
 // 歌曲详细界面
 const lyric = document.querySelector(".lyric");
+const nike = await res("/lyric?id=1472599278");
+const mike = await nike.json();
+console.log(mike.lrc.lyric);
 let cb = true;
 document.querySelector(".musicPic").addEventListener("click", () => {
     if (cb) {
@@ -452,6 +538,51 @@ document.querySelector(".musicPic").addEventListener("click", () => {
     }
     lyric.querySelectorAll("div")[0].querySelector("img").src = document.querySelector(".musicPic").src + "?param=300y300";
 });
+
+// 歌单广场
+var find = document.querySelector(".find");
+var park = document.querySelector(".park");
+const ja = await res("/top/playlist/highquality");
+const ja1 = await ja.json().then(value => { return value });
+for (let i = 0; i < find.querySelectorAll("li").length; i++) {
+    find.querySelectorAll("li")[i].addEventListener("click", () => {
+        for (let i = 0; i < find.querySelectorAll("li").length; i++) {
+            find.querySelectorAll("li")[i].querySelector("a").className = '';
+        }
+        find.querySelectorAll("li")[i].querySelector("a").className = 'itemkk';
+    })
+}
+find.querySelectorAll("li")[2].querySelector("a").addEventListener("click", () => {
+    park.style.display = 'block';
+    document.querySelector(".big-r").style.display = 'none';
+});
+find.querySelectorAll("li")[0].querySelector("a").addEventListener("click", () => {
+    park.style.display = 'none';
+    document.querySelector(".big-r").style.display = 'block';
+});
+for (let i = 0; i < ja1.playlists.length; i++) {
+    let div = document.createElement("div")
+    let img = document.createElement("img");
+    let small = document.createElement("small");
+    for (let i = 0; i < 2; i++) {
+        let span = document.createElement("span");
+        div.appendChild(span);
+    }
+    div.appendChild(img);
+    div.appendChild(small);
+    park.appendChild(div)
+    park.querySelectorAll("div")[i].querySelectorAll("span")[0].innerHTML = "▷" + parseInt(ja1.playlists[i].playCount / 10000) + "万";
+    park.querySelectorAll("div")[i].querySelectorAll("span")[1].innerHTML = "▶";
+    park.querySelectorAll("div")[i].querySelector("img").src = ja1.playlists[i].coverImgUrl + "?param=206y206";
+    park.querySelectorAll("div")[i].querySelector("small").innerHTML = ja1.playlists[i].name;
+    park.querySelectorAll("div")[i].addEventListener("mouseover", () => {
+        park.querySelectorAll("div")[i].querySelectorAll("span")[1].style.display = "block";
+    })
+    park.querySelectorAll("div")[i].addEventListener("mouseout", () => {
+        park.querySelectorAll("div")[i].querySelectorAll("span")[1].style.display = 'none';
+    })
+}
+
 // 进度条
 var scroll = document.getElementById('scroll');
 var bar = document.getElementById('bar');
@@ -520,56 +651,6 @@ audio.addEventListener("canplaythrough", () => {
         }
     })
 });
-// 登录模块
-const login = document.querySelector(".log").querySelector("button");
-login.addEventListener("click", async() => {
-    const phone = document.querySelectorAll(".join")[0].value;
-    const password = hex_md5(document.querySelectorAll(".join")[1].value);
-    // const res1 = await res("/login/cellphone?phone=" + phone + "&md5_password=" + password);
-    // const res1 = await fetch("http://redrock.udday.cn:2022/login/cellphone?phone=" + phone + "&md5_password=" + password, {
-    const res1 = await fetch("http://redrock.udday.cn:2022/login/cellphone?phone=19946894418&md5_password=8a6f2805b4515ac12058e79e66539be9", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        // credentials: 'include'
-    })
-
-    let date = await res1.json().then(date => { return date; });
-    console.log(date);
-    let cookie = date.cookie;
-    let token = date.token;
-    const res0 = await res("/login/refresh?cookie=" + cookie);
-    console.log(res0.json());
-    if (date.code !== 200) {
-        alert("密码错误或该手机号未注册");
-    } else {
-        const res2 = await res("/user/detail?uid=" + date.account.id + "&cookie=" + cookie);
-        let person = await res2.json().then(value => { return value; })
-        console.log(person);
-        const avatar = document.querySelector(".touxiang").querySelector("img");
-        const name = document.querySelector("#login").querySelectorAll("span")[0];
-        avatar.src = person.profile.avatarUrl + "?param=28y28";
-        name.innerHTML = person.profile.nickname;
-        const login = document.querySelector(".login");
-        login.style.display = "none";
-        // alert("欢迎使用网易云音乐青春版\(@^0^@)/");
-        // 每日歌曲推荐
-        const res3 = await res("/recommend/songs" + "?cookie=" + cookie);
-        console.log(res3.json());
-        // 每日推荐歌单
-        const res4 = await res("/recommend/resource?cookie=" + cookie);
-        const music1 = await res4.json(value => { return value });
-        console.log(music1);
-        for (let i = 1; i < recommend.children.length; i++) {
-            recommend.children[i].querySelector("img").src = music1.recommend[i - 1].picUrl;
-            recommend.children[i].querySelector("div").innerHTML = music1.recommend[i - 1].name;
-            recommend.children[0].querySelector('div').innerHTML = ""
-            let num = music1.recommend[i - 1].playcount / 10000;
-            recommend.children[i].querySelector("span").innerHTML = "▷ " + parseInt(num) + "万";
-        }
-    }
-});
 
 function res(api) {
     const a = fetch("http://redrock.udday.cn:2022" + api, {
@@ -624,8 +705,6 @@ async function musSay(id) {
     return obj;
 }
 const n = await musSay("33894312");
-console.log(n);
-console.log(n.name);
 // 音频加载完毕后执行后续代码
 // myVideo.addEventListener("canplaythrough", function() {
 //     //要执行的函数内容
