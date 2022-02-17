@@ -386,9 +386,13 @@ h5 {
     top: 75px;
 }
 
-h2 {
+.hz {
     margin-top: 20px;
     margin-left: 20px;
+}
+
+.h2::selection {
+    background-color: #d1d1d2;
 }
 
 .studio>span:nth-of-type(1) {
@@ -481,6 +485,15 @@ h2 {
     cursor: pointer;
 }
 
+@keyframes rate {
+    0% {
+        transform: rotateX(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .lyric {
     display: none;
     position: relative;
@@ -495,6 +508,32 @@ h2 {
     top: 100px;
     left: 270px;
     border-radius: 50%;
+    animation: rate 20s linear 0s infinite alternate forwards;
+}
+
+.lyric>div:nth-child(2)>div:nth-of-type(1) {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #a1a1a1;
+    cursor: default;
+}
+
+.lyric>div:nth-child(2)>div:nth-of-type(1)>span:nth-child(2n-1) {
+    cursor: pointer;
+}
+
+.h2 {
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 500;
+}
+
+.lyric>div:nth-child(2)>div:nth-of-type(2) {
+    position: absolute;
 }
 
 .hears {

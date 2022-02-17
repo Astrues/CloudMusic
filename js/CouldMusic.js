@@ -73,13 +73,173 @@ login.addEventListener("click", async() => {
         acound = await acoun.json();
         console.log(acound);
         for (let i = 1; i < acound.playlist.length; i++) {
-            console.log(1);
             let li = document.createElement("li");
             lect.appendChild(li);
             lect.querySelectorAll("li")[i].innerHTML = acound.playlist[i].name;
         }
         for (let i = 0; i < acound.playlist.length; i++) {
-            lect.querySelectorAll("li")[i].addEventListener("click", () => {})
+            lect.querySelectorAll("li")[i].addEventListener("click", async() => {
+                recom.style.display = 'block';
+                const re5 = await res("/playlist/detail?s=30&id=" + acound.playlist[i].id + "&cookie=" + cookie);
+                const rea5 = await re5.json();
+                console.log(rea5);
+                introduce.querySelectorAll("div")[0].querySelector("img").src = rea5.playlist.coverImgUrl + "?param=184y184";
+                icon2.querySelectorAll("li")[0].querySelectorAll("span")[1].innerHTML = rea5.playlist.name;
+                icon2.querySelectorAll("li")[1].querySelectorAll("a")[0].querySelector("img").src = rea5.playlist.creator.avatarUrl + "?param=24y24";
+                icon2.querySelectorAll("li")[1].querySelectorAll("a")[1].innerHTML = rea5.playlist.creator.nickname;
+                icon2.querySelectorAll("li")[1].querySelector("span").innerHTML = getTime(rea5.playlist.createTime);
+                icon2.querySelectorAll("li")[2].querySelectorAll("span")[1].querySelector("div").innerHTML = "+收藏(" + rea5.playlist.subscribedCount + ")";
+                icon2.querySelectorAll("li")[2].querySelectorAll("span")[2].querySelector("div").innerHTML = "📣分享(" + rea5.playlist.shareCount + ")";
+                for (let i = 0; i < rea5.playlist.tags.length; i++) {
+                    icon2.querySelectorAll("li")[3].querySelectorAll("a")[i].innerHTML = rea5.playlist.tags[i];
+                }
+                icon2.querySelectorAll("li")[4].querySelectorAll("span")[0].innerHTML = rea5.playlist.trackCount;
+                icon2.querySelectorAll("li")[4].querySelectorAll("span")[1].innerHTML = rea5.playlist.playCount;
+                icon2.querySelectorAll("li")[5].querySelector("span").innerHTML = rea5.playlist.description;
+                for (let i = 0; i < rea5.playlist.tags.length; i++) {
+                    icon2.querySelectorAll("li")[3].querySelectorAll("a")[i].innerHTML = rea5.playlist.tags[i];
+                }
+                icon2.querySelectorAll("li")[4].querySelectorAll("span")[0].innerHTML = rea5.playlist.trackCount;
+                icon2.querySelectorAll("li")[4].querySelectorAll("span")[1].innerHTML = parseInt(rea5.playlist.playCount / 10000) + "万";
+                icon2.querySelectorAll("li")[5].querySelector("span").innerHTML = rea5.playlist.description;
+                // document.querySelector(".subscribers").querySelector("img").src = re1.playlist.subscribers[0].avatarUrl + "?param=90y90"
+                const limit = rea5.playlist.commentCount;
+                comments.querySelectorAll("h5")[1].innerHTML = "最新评论(" + limit + ")";
+                console.log(limit);
+                itemk[1].innerHTML = "评论(" + limit + ")";
+                const ra = await res("/comment/playlist?&limit=" + limit + "&id=" + acound.playlist[i].id + "&cookie=" + cookie);
+                const ra1 = await ra.json().then(value => { return value });
+                console.log(ra1);
+                // 评论内容
+                const say1 = document.querySelector(".say1");
+                const say2 = document.querySelector(".say2");
+                // (1).精彩评论
+                if (ra1.hotComments.length === 0) {
+                    document.querySelectorAll("h5")[0].style.display = 'none';
+                }
+                for (let i = 0; i < ra1.hotComments.length; i++) {
+                    let li = document.createElement("li");
+                    for (let i = 0; i < 7; i++) {
+                        let span = document.createElement("span");
+                        li.appendChild(span);
+                    }
+                    say1.appendChild(li);
+                    let img = document.createElement("img");
+                    say1.querySelectorAll("li")[i].querySelectorAll("span")[0].appendChild(img);
+                    say1.querySelectorAll("li")[i].querySelectorAll("span")[0].querySelector("img").src = ra1.hotComments[i].user.avatarUrl + "?param=36y36";
+                    say1.querySelectorAll("li")[i].querySelectorAll("span")[1].innerHTML = ra1.hotComments[i].user.nickname + ":";
+                    say1.querySelectorAll("li")[i].querySelectorAll("span")[2].innerHTML = ra1.hotComments[i].content;
+                    say1.querySelectorAll("li")[i].querySelectorAll("span")[3].innerHTML = getT(ra1.hotComments[i].time);
+                    say1.querySelectorAll("li")[i].querySelectorAll("span")[4].innerHTML = "举报";
+                    say1.querySelectorAll("li")[i].addEventListener("mouseover", () => {
+                        say1.querySelectorAll("li")[i].querySelectorAll("span")[4].style.display = 'block'
+                    })
+                    say1.querySelectorAll("li")[i].addEventListener("mouseout", () => {
+                        say1.querySelectorAll("li")[i].querySelectorAll("span")[4].style.display = 'none'
+                    })
+                }
+                // (2).最新评论
+                if (ra1.comments.length === 0) {
+                    document.querySelectorAll("h5")[1].style.display = 'none';
+                }
+                for (let i = 0; i < ra1.comments.length; i++) {
+                    let li = document.createElement("li");
+                    for (let i = 0; i < 7; i++) {
+                        let span = document.createElement("span");
+                        li.appendChild(span);
+                    }
+                    say2.appendChild(li);
+                    let img = document.createElement("img");
+                    say2.querySelectorAll("li")[i].querySelectorAll("span")[0].appendChild(img);
+                    say2.querySelectorAll("li")[i].querySelectorAll("span")[0].querySelector("img").src = ra1.comments[i].user.avatarUrl + "?param=36y36";
+                    say2.querySelectorAll("li")[i].querySelectorAll("span")[1].innerHTML = ra1.comments[i].user.nickname + ":";
+                    say2.querySelectorAll("li")[i].querySelectorAll("span")[2].innerHTML = ra1.comments[i].content;
+                    say2.querySelectorAll("li")[i].querySelectorAll("span")[3].innerHTML = getT(ra1.comments[i].time);
+                    say2.querySelectorAll("li")[i].querySelectorAll("span")[4].innerHTML = "举报";
+                    say2.querySelectorAll("li")[i].addEventListener("mouseover", () => {
+                        say2.querySelectorAll("li")[i].querySelectorAll("span")[4].style.display = 'block'
+                    })
+                    say2.querySelectorAll("li")[i].addEventListener("mouseout", () => {
+                        say2.querySelectorAll("li")[i].querySelectorAll("span")[4].style.display = 'none'
+                    })
+                }
+                const tbody = document.querySelector("tbody");
+                for (let i = 0; i < rea5.playlist.trackIds.length; i++) {
+                    let tr = document.createElement("tr");
+                    let td = document.createElement("td");
+                    for (let i = 0; i < 7; i++) {
+                        let span = document.createElement("span");
+                        td.appendChild(span);
+                    }
+                    tr.appendChild(td);
+                    tbody.appendChild(tr);
+                }
+                for (let i = 0; i < rea5.playlist.trackIds.length; i++) {
+                    const musc = await musSay(rea5.playlist.trackIds[i].id);
+                    const mmm = document.querySelector("tbody").querySelectorAll("tr")[i].querySelector("td").querySelectorAll("span");
+                    if ((i + 1) < 10) {
+                        mmm[0].innerHTML = "0" + (i + 1);
+                    } else {
+                        mmm[0].innerHTML = (i + 1);
+                    }
+                    document.querySelector(".audio").src = musc.url;
+                    document.querySelector(".audio").addEventListener("canplaythrough", () => {
+                        mmm[6].innerHTML = getMuc(document.querySelector(".audio").duration);
+                    })
+                    mmm[1].innerHTML = "ღ";
+                    mmm[2].innerHTML = "↓";
+                    mmm[3].innerHTML = musc.name;
+                    mmm[4].innerHTML = musc.acname;
+                    mmm[5].innerHTML = musc.nikname;
+                    // mmm[6].innerHTML = musc.time;
+                }
+                // console.log(arr);
+                // 点击歌单歌曲更换播放器内容并播放
+                let x;
+                for (let i = 0; i < rea5.playlist.trackIds.length; i++) {
+                    tbody.querySelectorAll("tr")[i].addEventListener("click", async() => {
+                        x = i;
+                        const musc = await mus(rea5.playlist.trackIds[i].id);
+                        // console.log(musc.songs[0].al.picUrl);
+                        document.querySelector(".item1").querySelectorAll("span")[0].querySelector("img").src = musc.songs[0].al.picUrl;
+                        document.querySelectorAll(".im")[0].innerHTML = musc.songs[0].name;
+                        document.querySelector(".act").innerHTML = musc.songs[0].ar[0].name;
+                        const jjj = await muss(rea5.playlist.trackIds[i].id);
+                        console.log(jjj);
+                        audio.src = jjj.data[0].url;
+                        audio.addEventListener("canplaythrough", async() => {
+                            clearInterval(timer2);
+                            flag = true;
+                            play.click();
+                            audio.play();
+                            console.log(audio.duration);
+                            document.querySelector(".end").innerHTML = getMuc(audio.duration);
+                        })
+                    })
+                }
+                // (1).上一首
+                let trs = tbody.querySelectorAll("tr");
+                left.addEventListener("click", async() => {
+                    if (x == 0) {
+                        trs[trs.length - 1].click();
+                    } else {
+                        trs[x - 1].click();
+                    }
+                });
+                // (2).下一首
+                right.addEventListener("click", () => {
+                    if (x == trs.length - 1) {
+                        trs[0].click();
+                    } else {
+                        trs[x + 1].click();
+                    }
+                });
+                //自动播放下一首 不行
+                // if (parseInt(audio.duration) == parseInt(audio.currentTime)) {
+                //     alert(1)
+                //     right.click();
+                // }
+            })
         }
     }
 });
@@ -200,11 +360,13 @@ play.addEventListener("click", () => {
             document.querySelector(".start").innerHTML = getMuc(audio.currentTime);
         }, 1000);
         audio.play();
+        lyric.querySelectorAll("div")[0].querySelector("img").style.animationPlayState = 'running';
     } else {
         audio.pause();
         flag = true;
         play.querySelector("img").src = "upload/暂停1.png"
         clearInterval(timer2);
+        lyric.querySelectorAll("div")[0].querySelector("img").style.animationPlayState = 'paused';
     }
 });
 // 上一首下一首
@@ -528,9 +690,11 @@ const nike = await res("/lyric?id=1472599278");
 const mike = await nike.json();
 console.log(mike.lrc.lyric);
 let cb = true;
+lyric.querySelectorAll("div")[0].querySelector("img").style.animationPlayState = 'paused';
 document.querySelector(".musicPic").addEventListener("click", () => {
     if (cb) {
         lyric.style.display = 'block';
+        document.querySelector(".lyr").innerHTML = mike.lrc.lyric;
         cb = false;
     } else {
         lyric.style.display = 'none';
@@ -619,14 +783,14 @@ setInterval(() => {
     bar.style.left = parseInt(audio.currentTime / audio.duration * 370) + "px"
 }, 1000);
 // 音量调整
-audio.addEventListener("canplaythrough", () => {
-    var an = document.querySelector(".an");
-    var ying = document.querySelector(".ying");
-    var zong = document.querySelector(".zong");
-    var antop = 0;
-    let bc = true;
-    console.log("---------------");
-    document.querySelector(".hear").addEventListener("click", () => {
+// audio.addEventListener("canplaythrough", () => {
+var an = document.querySelector(".an");
+var ying = document.querySelector(".ying");
+var zong = document.querySelector(".zong");
+var antop = 0;
+let bc = true;
+console.log("---------------");
+document.querySelector(".hear").addEventListener("click", () => {
         if (bc) {
             document.querySelector(".hears").style.display = 'block';
             bc = false;
@@ -650,7 +814,7 @@ audio.addEventListener("canplaythrough", () => {
             document.onmousemove = null; //弹起鼠标不做任何操作
         }
     })
-});
+    // });
 
 function res(api) {
     const a = fetch("http://redrock.udday.cn:2022" + api, {
