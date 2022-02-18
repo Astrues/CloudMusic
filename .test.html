@@ -5,18 +5,15 @@
 </body>
 <!-- <script src="Scripts/jquery-1.7.1.js"></script> -->
 <script>
-    const nike = fetch("http://redrock.udday.cn:2022/lyric?id=1472599278");
-    const mike = nike.json();
-    console.log(mike.lrc.lyric);
     //输出的内容
-    var content = mike.lrc.lyric
+    var content = "Aqeela Asifi, ~ who fled to Pakistan as a young woman, has spent her life teaching other Afghan refugees. ~ Aqeela Asifi ~ For her efforts, Ms. Asifi, who is 49, has won the 2015 UNHCR Nansen Refugee award. She also gets $100,000 to help pay for her education projects."
         //单独段落
-    para = "";
-    //添加<p>元素处理后的段落
-    inner = "";
+    para = ""
+        //添加<p>元素处理后的段落
+    inner = ""
     for (a = 0; a < content.length;) {
         undefined
-        if (content[a] != '[') {
+        if (content[a] != '~') {
             undefined
             para += content[a]; //根据'~'字符来对内容分割
         } else {
