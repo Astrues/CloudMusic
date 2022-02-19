@@ -381,7 +381,7 @@ h5 {
     width: 400px;
     height: 792px;
     background-color: #ffffff;
-    z-index: 5;
+    z-index: 8;
     right: 0;
     top: 75px;
 }
@@ -500,7 +500,7 @@ h5 {
     width: 100%;
     height: 100%;
     background-color: #fcfcfd;
-    z-index: 6;
+    z-index: 7;
 }
 
 .lyric>div:nth-child(1)>img {
@@ -880,4 +880,47 @@ h5 {
 
 .decia>li:hover {
     background-color: #f0f1f2;
+}
+
+.mult {
+    display: none;
+    position: fixed;
+    width: 400px;
+    height: 800px;
+    top: 80px;
+    left: 240px;
+    background-color: #ffffff;
+    z-index: 7;
+    cursor: default;
+    box-shadow: 0 0 5px 0 rgb(0 0 0 / 30%);
+}
+
+.mult>span {
+    color: #999999;
+}
+
+.mult>span:hover {
+    color: #666666;
+}
+
+.mult>div>span {
+    margin-left: 20px;
+}
+
+.mult>div>span {
+    color: #999999;
+}
+
+.mult>div>span:hover {
+    color: #666666;
+}
+
+.mult>div>li {
+    height: 36px;
+    margin-left: 20px;
+    line-height: 36px;
+}
+
+.mult>div>li:hover {
+    background-color: #f3f3f3;
 }

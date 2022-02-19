@@ -42,7 +42,7 @@ input {
     width: 100%;
     bottom: 0;
     background-color: #ffffff;
-    z-index: 7;
+    z-index: 8;
 }
 
 .item1,
@@ -144,7 +144,7 @@ input {
     position: fixed;
     top: 917px;
     left: 730px;
-    z-index: 7;
+    z-index: 8;
 }
 
 .end {
@@ -152,7 +152,7 @@ input {
     position: fixed;
     top: 917px;
     right: 715px;
-    z-index: 7;
+    z-index: 8;
 }
 
 .item3 span {

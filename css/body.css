@@ -157,6 +157,7 @@
     background-color: #ffffff;
     z-index: 7;
     overflow-y: scroll;
+    box-shadow: 0 0 5px 0 rgb(0 0 0 / 30%);
 }
 
 .look>.hot>p {
