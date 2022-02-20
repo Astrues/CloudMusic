@@ -25,13 +25,13 @@ document.querySelector(".lg").addEventListener("click", () => {
     document.querySelector(".r").style.display = 'none';
     document.querySelector(".decial").style.display = 'none';
     // document.querySelector(".serde").style.display = 'none';
-    // document.querySelector(".park").style.display = 'none';
+    document.querySelector(".park").style.display = 'none';
     // document.querySelector(".lect").style.display = 'none';
     // document.querySelector(".scc").style.display = 'none';
     // document.querySelector(".recom").style.display = 'none';
     recom.style.display = 'none';
-    // document.querySelector(".recommend").style.display = 'block'
-    // document.querySelector(".recommend").style.display = 'block';
+    document.querySelector(".recommend").style.display = 'block';
+    document.querySelector(".recommend").style.display = 'flex';
 })
 const rec = await fetch("http://redrock.udday.cn:2022/personalized?limit=8", {
     method: "POST",
@@ -95,6 +95,7 @@ login.addEventListener("click", async() => {
         }
         for (let i = 0; i < acound.playlist.length; i++) {
             lect.querySelectorAll("li")[i].addEventListener("click", async() => {
+                document.querySelector(".recommend").style.display = 'none';
                 if (like) {
                     alert(1);
                     for (let i = 0; i < tbody.querySelectorAll("tr").length; i++) {
@@ -401,6 +402,7 @@ const introduce = document.querySelector(".introduce");
 const icon2 = document.querySelector(".icon2");
 for (let i = 0; i < recommend.children.length; i++) {
     recommend.children[i].addEventListener("click", async() => {
+        document.querySelector(".recommend").style.display = 'none';
         const tbody = document.querySelector("tbody");
         if (like) {
             for (let i = 0; i < tbody.querySelectorAll("tr").length; i++) {
