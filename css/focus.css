@@ -62,11 +62,6 @@
     cursor: pointer;
 }
 
-
-/* .circle li:hover {
-    background-color: #bc0b0b;
-} */
-
 .current {
     background-color: #bc0b0b;
 }
