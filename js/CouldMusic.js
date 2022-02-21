@@ -4,6 +4,7 @@ const comments = document.querySelector(".comments");
 const subscribers = document.querySelector(".subscribers");
 const arr = [track, comments, subscribers];
 var page = document.querySelector(".page");
+const tbody = document.querySelector("tbody");
 const left = document.querySelector(".left");
 const right = document.querySelector(".right");
 var l, r;
@@ -60,17 +61,14 @@ login.addEventListener("click", async() => {
     })
 
     let date = await res1.json().then(date => { return date; });
-    console.log(date);
     cookie = date.cookie;
     let token = date.token;
     const res0 = await res("/login/refresh?cookie=" + cookie);
-    console.log(res0.json());
     if (date.code !== 200) {
         alert("密码错误或该手机号未注册");
     } else {
         const res2 = await res("/user/detail?uid=" + date.account.id + "&cookie=" + cookie);
         let person = await res2.json().then(value => { return value; })
-        console.log(person);
         const avatar = document.querySelector(".touxiang").querySelector("img");
         const name = document.querySelector("#login").querySelectorAll("span")[0];
         avatar.src = person.profile.avatarUrl + "?param=28y28";
@@ -80,14 +78,11 @@ login.addEventListener("click", async() => {
         // alert("欢迎使用网易云音乐青春版\(@^0^@)/");
         // 每日歌曲推荐
         const res3 = await res("/recommend/songs" + "?cookie=" + cookie);
-        console.log(res3.json());
         // 每日推荐歌单
         const res4 = await res("/recommend/resource?cookie=" + cookie);
         const music1 = await res4.json(value => { return value });
-        console.log(music1);
         const acoun = await res("/user/playlist?uid=1857911469");
         acound = await acoun.json();
-        console.log(acound);
         for (let i = 1; i < acound.playlist.length; i++) {
             let li = document.createElement("li");
             lect.appendChild(li);
@@ -95,9 +90,12 @@ login.addEventListener("click", async() => {
         }
         for (let i = 0; i < acound.playlist.length; i++) {
             lect.querySelectorAll("li")[i].addEventListener("click", async() => {
+                for (let i = 0; i < lect.querySelectorAll("li").length; i++) {
+                    lect.querySelectorAll("li")[i].style.backgroundColor = "#ffffff";
+                }
+                lect.querySelectorAll("li")[i].style.backgroundColor = "#f5f5f6";
                 document.querySelector(".recommend").style.display = 'none';
                 if (like) {
-                    alert(1);
                     for (let i = 0; i < tbody.querySelectorAll("tr").length; i++) {
                         tbody.querySelectorAll("tr")[i].parentNode.removeChild(tbody.querySelectorAll("tr")[i]);
                         like = false;
@@ -107,7 +105,6 @@ login.addEventListener("click", async() => {
                 recom.style.display = 'block';
                 const re5 = await res("/playlist/detail?s=30&id=" + acound.playlist[i].id + "&cookie=" + cookie);
                 const rea5 = await re5.json();
-                console.log(rea5);
                 introduce.querySelectorAll("div")[0].querySelector("img").src = rea5.playlist.coverImgUrl + "?param=184y184";
                 icon2.querySelectorAll("li")[0].querySelectorAll("span")[1].innerHTML = rea5.playlist.name;
                 icon2.querySelectorAll("li")[1].querySelectorAll("a")[0].querySelector("img").src = rea5.playlist.creator.avatarUrl + "?param=24y24";
@@ -130,11 +127,9 @@ login.addEventListener("click", async() => {
                 // document.querySelector(".subscribers").querySelector("img").src = re1.playlist.subscribers[0].avatarUrl + "?param=90y90"
                 const limit = rea5.playlist.commentCount;
                 comments.querySelectorAll("h5")[1].innerHTML = "最新评论(" + limit + ")";
-                console.log(limit);
                 itemk[1].innerHTML = "评论(" + limit + ")";
                 const ra = await res("/comment/playlist?&limit=" + limit + "&id=" + acound.playlist[i].id + "&cookie=" + cookie);
                 const ra1 = await ra.json().then(value => { return value });
-                console.log(ra1);
                 // 评论内容
                 const say1 = document.querySelector(".say1");
                 const say2 = document.querySelector(".say2");
@@ -218,26 +213,22 @@ login.addEventListener("click", async() => {
                     mmm[5].innerHTML = musc.nikname;
                     // mmm[6].innerHTML = musc.time;
                 }
-                // console.log(arr);
                 // 点击歌单歌曲更换播放器内容并播放
                 let x;
                 for (let i = 0; i < rea5.playlist.trackIds.length; i++) {
                     tbody.querySelectorAll("tr")[i].addEventListener("click", async() => {
                         x = i;
                         const musc = await mus(rea5.playlist.trackIds[i].id);
-                        // console.log(musc.songs[0].al.picUrl);
                         document.querySelector(".item1").querySelectorAll("span")[0].querySelector("img").src = musc.songs[0].al.picUrl;
                         document.querySelectorAll(".im")[0].innerHTML = musc.songs[0].name;
                         document.querySelector(".act").innerHTML = musc.songs[0].ar[0].name;
                         const jjj = await muss(rea5.playlist.trackIds[i].id);
-                        console.log(jjj);
                         audio.src = jjj.data[0].url;
                         audio.addEventListener("canplaythrough", async() => {
                             clearInterval(timer2);
                             flag = true;
                             play.click();
                             audio.play();
-                            console.log(audio.duration);
                             document.querySelector(".end").innerHTML = getMuc(audio.duration);
                         })
                     })
@@ -318,7 +309,6 @@ document.querySelector(".bofang").addEventListener("click", () => {
     };
     for (let i = 0; i < trs.length; i++) {
         document.querySelector(".page").querySelectorAll("p")[i].addEventListener("click", () => {
-            console.log(document.querySelector(".page").querySelectorAll("p")[i]);
             document.querySelector("tbody").querySelectorAll("tr")[i].click();
         })
     }
@@ -381,7 +371,6 @@ play.addEventListener("click", () => {
         flag = false
         play.querySelector("img").src = "upload/播放.png"
         timer2 = setInterval(() => {
-            // console.log(audio.currentTime);
             document.querySelector(".start").innerHTML = getMuc(audio.currentTime);
         }, 1000);
         audio.play();
@@ -426,7 +415,6 @@ for (let i = 0; i < recommend.children.length; i++) {
             var re2 = await re.json().then(value => { return value });
             re1 = re2;
         }
-        console.log(re1);
         introduce.querySelectorAll("div")[0].querySelector("img").src = re1.playlist.coverImgUrl + "?param=184y184";
         icon2.querySelectorAll("li")[0].querySelectorAll("span")[1].innerHTML = re1.playlist.name;
         icon2.querySelectorAll("li")[1].querySelectorAll("a")[0].querySelector("img").src = re1.playlist.creator.avatarUrl + "?param=24y24";
@@ -443,11 +431,9 @@ for (let i = 0; i < recommend.children.length; i++) {
         // document.querySelector(".subscribers").querySelector("img").src = re1.playlist.subscribers[0].avatarUrl + "?param=90y90"
         const limit = re1.playlist.commentCount;
         comments.querySelectorAll("h5")[1].innerHTML = "最新评论(" + limit + ")";
-        console.log(limit);
         itemk[1].innerHTML = "评论(" + limit + ")";
         const ra = await res("/comment/playlist?&limit=" + limit + "&id=" + music.result[i].id);
         const ra1 = await ra.json().then(value => { return value });
-        console.log(ra1);
         // 评论内容
         const say1 = document.querySelector(".say1");
         const say2 = document.querySelector(".say2");
@@ -530,19 +516,16 @@ for (let i = 0; i < recommend.children.length; i++) {
             mmm[5].innerHTML = musc.nikname;
             // mmm[6].innerHTML = musc.time;
         }
-        // console.log(arr);
         // 点击歌单歌曲更换播放器内容并播放
         let x;
         for (let i = 0; i < re1.playlist.trackIds.length; i++) {
             tbody.querySelectorAll("tr")[i].addEventListener("click", async() => {
                 x = i;
                 const musc = await mus(re1.playlist.trackIds[i].id);
-                // console.log(musc.songs[0].al.picUrl);
                 document.querySelector(".item1").querySelectorAll("span")[0].querySelector("img").src = musc.songs[0].al.picUrl;
                 document.querySelectorAll(".im")[0].innerHTML = musc.songs[0].name;
                 document.querySelector(".act").innerHTML = musc.songs[0].ar[0].name;
                 const jjj = await muss(re1.playlist.trackIds[i].id);
-                console.log(jjj);
                 audio.src = jjj.data[0].url;
                 audio.addEventListener("canplaythrough", async() => {
                     clearInterval(timer2);
@@ -627,7 +610,6 @@ document.addEventListener("keyup", async function(e) {
             document.querySelector(".decia").querySelectorAll("li")[i].addEventListener("click", async() => {
                 x = i;
                 const hotser = await musSay(data.result.songs[i].id);
-                console.log(hotser);
                 document.querySelector(".item1").querySelectorAll("span")[0].querySelector("img").src = hotser.Picurl;
                 document.querySelectorAll(".im")[0].innerHTML = hotser.name;
                 document.querySelector(".act").innerHTML = hotser.acname;
@@ -637,14 +619,7 @@ document.addEventListener("keyup", async function(e) {
                     flag = true;
                     play.click();
                     audio.play();
-                    console.log(audio.duration);
                     document.querySelector(".end").innerHTML = getMuc(audio.duration);
-                    setInterval(() => {
-                        console.log(parseInt(audio.duration));
-                    }, 1000);
-                    setInterval(() => {
-                        console.log(parseInt(audio.currentTime));
-                    }, 1000);
                     while (parseInt(audio.duration) === parseInt(audio.currentTime)) {
                         right.click();
                     }
@@ -681,7 +656,6 @@ search.addEventListener("focus", () => {
         mult.style.display = 'block'
         const sea = await res("/search/suggest?keywords=" + search.value);
         const data = await sea.json().then(value => { return value });
-        console.log(data);
         b = data;
         for (let i = 0; i < data.result.songs.length; i++) {
             if (mt) {
@@ -717,6 +691,23 @@ search.addEventListener("focus", () => {
             mult.querySelector(".playlists").querySelectorAll("li")[i].innerHTML = data.result.playlists[i].name;
         }
         mt = true;
+        const sg = document.querySelector(".songs").querySelectorAll("li");
+        for (let i = 0; i < sg.length; i++) {
+            sg[i].addEventListener("click", async() => {
+                let aj = await musSay(data.result.songs[i].id)
+                document.querySelector(".item1").querySelectorAll("span")[0].querySelector("img").src = aj.Picurl;
+                document.querySelectorAll(".im")[0].innerHTML = aj.name;
+                document.querySelector(".act").innerHTML = aj.acname;
+                audio.src = aj.url;
+                audio.addEventListener("canplaythrough", async() => {
+                    clearInterval(timer2);
+                    flag = true;
+                    play.click();
+                    audio.play();
+                    document.querySelector(".end").innerHTML = getMuc(audio.duration);
+                })
+            })
+        }
     })
 
 });
@@ -745,13 +736,10 @@ for (let i = 0; i < rses.data.length; i++) {
     hot.querySelectorAll("li")[i].addEventListener("click", async function() {
         document.querySelector(".recom").style.display = 'none';
         document.querySelector(".find").style.display = 'none';
-
         const sea = await res("/cloudsearch?keywords=" + rses.data[i].searchWord);
         let data = await sea.json().then(value => { return value });
-        console.log(data);
         document.querySelector(".big-r").style.display = 'none';
         document.querySelector(".serde").style.display = 'block';
-        console.log(serde.querySelectorAll("span")[0]);
         serde.querySelectorAll("div")[0].innerHTML = "搜索 " + this.querySelectorAll("span")[1].innerText;
         for (let i = 0; i < data.result.songs.length; i++) {
             let li = document.createElement("li");
@@ -782,7 +770,6 @@ for (let i = 0; i < rses.data.length; i++) {
             document.querySelector(".decial").querySelectorAll("li")[i].addEventListener("click", async() => {
                 x = i;
                 const hotser = await musSay(data.result.songs[i].id);
-                console.log(hotser);
                 document.querySelector(".item1").querySelectorAll("span")[0].querySelector("img").src = hotser.Picurl;
                 document.querySelectorAll(".im")[0].innerHTML = hotser.name;
                 document.querySelector(".act").innerHTML = hotser.acname;
@@ -792,14 +779,7 @@ for (let i = 0; i < rses.data.length; i++) {
                     flag = true;
                     play.click();
                     audio.play();
-                    console.log(audio.duration);
                     document.querySelector(".end").innerHTML = getMuc(audio.duration);
-                    setInterval(() => {
-                        console.log(parseInt(audio.duration));
-                    }, 1000);
-                    setInterval(() => {
-                        console.log(parseInt(audio.currentTime));
-                    }, 1000);
                     while (parseInt(audio.duration) === parseInt(audio.currentTime)) {
                         right.click();
                     }
@@ -825,7 +805,11 @@ for (let i = 0; i < rses.data.length; i++) {
     })
 }
 search.addEventListener("focus", () => {
-    document.querySelector(".look").style.display = "block";
+    if (search.value == '') {
+        document.querySelector(".look").style.display = "block";
+    } else {
+        document.querySelector(".mult").style.display = "block";
+    }
 });
 search.addEventListener("blur", () => {
     setTimeout(() => {
@@ -840,7 +824,6 @@ document.querySelector(".home").addEventListener("click", () => {
 const lyric = document.querySelector(".lyric");
 const nike = await res("/lyric?id=1472599278");
 const mike = await nike.json();
-console.log(mike.lrc.lyric);
 let cb = true;
 lyric.querySelectorAll("div")[0].querySelector("img").style.animationPlayState = 'paused';
 document.querySelector(".musicPic").addEventListener("click", () => {
@@ -859,7 +842,6 @@ var find = document.querySelector(".find");
 var park = document.querySelector(".park");
 const ja = await res("/top/playlist/highquality");
 const ja1 = await ja.json().then(value => { return value });
-console.log(ja1);
 for (let i = 0; i < find.querySelectorAll("li").length; i++) {
     find.querySelectorAll("li")[i].addEventListener("click", () => {
         for (let i = 0; i < find.querySelectorAll("li").length; i++) {
@@ -871,11 +853,19 @@ for (let i = 0; i < find.querySelectorAll("li").length; i++) {
 find.querySelectorAll("li")[2].querySelector("a").addEventListener("click", () => {
     park.style.display = 'block';
     document.querySelector(".big-r").style.display = 'none';
+    document.querySelector(".rank").style.display = 'none';
 });
 find.querySelectorAll("li")[0].querySelector("a").addEventListener("click", () => {
     park.style.display = 'none';
     document.querySelector(".big-r").style.display = 'block';
     document.querySelector(".hp").style.display = 'none';
+    document.querySelector(".rank").style.display = 'none';
+});
+find.querySelectorAll("li")[3].querySelector("a").addEventListener("click", () => {
+    park.style.display = 'none';
+    document.querySelector(".big-r").style.display = 'none';
+    document.querySelector(".hp").style.display = 'none';
+    document.querySelector(".rank").style.display = 'block';
 });
 for (let i = 0; i < ja1.playlists.length; i++) {
     let div = document.createElement("div")
@@ -892,12 +882,6 @@ for (let i = 0; i < ja1.playlists.length; i++) {
     park.querySelectorAll("div")[i].querySelectorAll("span")[1].innerHTML = "▶";
     park.querySelectorAll("div")[i].querySelector("img").src = ja1.playlists[i].coverImgUrl + "?param=206y206";
     park.querySelectorAll("div")[i].querySelector("small").innerHTML = ja1.playlists[i].name;
-    park.querySelectorAll("div")[i].addEventListener("mouseover", () => {
-        park.querySelectorAll("div")[i].querySelectorAll("span")[1].style.display = "block";
-    })
-    park.querySelectorAll("div")[i].addEventListener("mouseout", () => {
-        park.querySelectorAll("div")[i].querySelectorAll("span")[1].style.display = 'none';
-    })
     park.querySelectorAll("div")[i].addEventListener("click", async() => {
         const tbody = document.querySelector("tbody");
         if (like) {
@@ -912,17 +896,9 @@ for (let i = 0; i < ja1.playlists.length; i++) {
             // recommend.style.display = 'none';
         recom.style.display = 'block';
         var re1;
-        if (jack) {
-            const res4 = await res("/recommend/resource?cookie=" + cookie);
-            const music1 = await res4.json(value => { return value });
-            var re3 = await res("/playlist/detail?s=30&id=" + music1.recommend[i].id);
-            re1 = await re3.json().then(value => { return value });
-        } else {
-            var re = await res("/playlist/detail?s=30&id=" + ja1.playlists[i].id);
-            var re2 = await re.json().then(value => { return value });
-            re1 = re2;
-        }
-        console.log(re1);
+        var re = await res("/playlist/detail?s=30&id=" + ja1.playlists[i].id);
+        var re2 = await re.json().then(value => { return value });
+        re1 = re2;
         introduce.querySelectorAll("div")[0].querySelector("img").src = re1.playlist.coverImgUrl + "?param=184y184";
         icon2.querySelectorAll("li")[0].querySelectorAll("span")[1].innerHTML = re1.playlist.name;
         icon2.querySelectorAll("li")[1].querySelectorAll("a")[0].querySelector("img").src = re1.playlist.creator.avatarUrl + "?param=24y24";
@@ -939,11 +915,9 @@ for (let i = 0; i < ja1.playlists.length; i++) {
         // document.querySelector(".subscribers").querySelector("img").src = re1.playlist.subscribers[0].avatarUrl + "?param=90y90"
         const limit = re1.playlist.commentCount;
         comments.querySelectorAll("h5")[1].innerHTML = "最新评论(" + limit + ")";
-        console.log(limit);
         itemk[1].innerHTML = "评论(" + limit + ")";
         const ra = await res("/comment/playlist?&limit=" + limit + "&id=" + music.result[i].id);
         const ra1 = await ra.json().then(value => { return value });
-        console.log(ra1);
         // 评论内容
         const say1 = document.querySelector(".say1");
         const say2 = document.querySelector(".say2");
@@ -1026,19 +1000,16 @@ for (let i = 0; i < ja1.playlists.length; i++) {
             mmm[5].innerHTML = musc.nikname;
             // mmm[6].innerHTML = musc.time;
         }
-        // console.log(arr);
         // 点击歌单歌曲更换播放器内容并播放
         let x;
         for (let i = 0; i < re1.playlist.trackIds.length; i++) {
             tbody.querySelectorAll("tr")[i].addEventListener("click", async() => {
                 x = i;
                 const musc = await mus(re1.playlist.trackIds[i].id);
-                // console.log(musc.songs[0].al.picUrl);
                 document.querySelector(".item1").querySelectorAll("span")[0].querySelector("img").src = musc.songs[0].al.picUrl;
                 document.querySelectorAll(".im")[0].innerHTML = musc.songs[0].name;
                 document.querySelector(".act").innerHTML = musc.songs[0].ar[0].name;
                 const jjj = await muss(re1.playlist.trackIds[i].id);
-                console.log(jjj);
                 audio.src = jjj.data[0].url;
                 audio.addEventListener("canplaythrough", async() => {
                     clearInterval(timer2);
@@ -1072,7 +1043,9 @@ for (let i = 0; i < ja1.playlists.length; i++) {
             right.click();
         }
     })
+
 }
+
 // 歌单分类
 var allpark = await res("/playlist/catlist");
 var hp = await allpark.json();
@@ -1132,16 +1105,18 @@ for (let i = 0; i < hp.sub.length; i++) {
 const tags = document.querySelector(".tags");
 for (let i = 0; i < tags.querySelectorAll("span").length; i++) {
     tags.querySelectorAll("span")[i].addEventListener("click", async() => {
+        document.querySelector(".hp").style.display = "none";
         for (let i = 0; i < park.querySelectorAll("div").length; i++) {
             park.querySelectorAll("div")[i].parentNode.removeChild(park.querySelectorAll("div")[i])
         }
         let r = tags.querySelectorAll("span")[i].innerText.replace("HOT", '');
-        console.log(r);
         park.querySelector("button").innerHTML = r + " >";
+        console.log(r);
         for (let i = 0; i < hp.sub.length; i++) {
             if (r === hp.sub[i].name) {
                 let jaz = await res("/top/playlist?cat=" + r);
                 let ja2 = await jaz.json();
+                console.log(ja2);
                 for (let i = 0; i < ja2.playlists.length; i++) {
                     let div = document.createElement("div")
                     let img = document.createElement("img");
@@ -1192,12 +1167,6 @@ for (let j = 0; j < document.querySelector(".hottag").querySelectorAll("span").l
             park.querySelectorAll("div")[i].querySelectorAll("span")[1].innerHTML = "▶";
             park.querySelectorAll("div")[i].querySelector("img").src = l2.playlists[i].coverImgUrl + "?param=206y206";
             park.querySelectorAll("div")[i].querySelector("small").innerHTML = l2.playlists[i].name;
-            park.querySelectorAll("div")[i].addEventListener("mouseover", () => {
-                park.querySelectorAll("div")[i].querySelectorAll("span")[1].style.display = "block";
-            })
-            park.querySelectorAll("div")[i].addEventListener("mouseout", () => {
-                park.querySelectorAll("div")[i].querySelectorAll("span")[1].style.display = 'none';
-            })
         }
     })
 }
@@ -1254,11 +1223,9 @@ document.querySelector(".hear").addEventListener("click", () => {
     an.addEventListener("mousedown", () => {
         document.onmousemove = function(e) {
             antop = 875 - e.pageY;
-            console.log(antop);
             if (antop <= 70 && antop >= 0) {
                 an.style.top = 70 - antop + 'px';
                 zong.style.height = 80 - antop + 'px';
-                console.log(audio.volume);
                 audio.volume = 1 - parseFloat(an.style.top) / 70;
             }
         }
@@ -1272,6 +1239,221 @@ document.querySelector(".hear").addEventListener("click", () => {
 const rk = await res("/toplist/detail");
 const rank = await rk.json();
 console.log(rank);
+const off = document.querySelector(".off");
+const world = document.querySelector(".world");
+for (let i = 0; i < 4; i++) {
+    let div = document.createElement("div");
+    let div1 = document.createElement("div");
+    let img = document.createElement("img");
+    div1.appendChild(img);
+    let div2 = document.createElement("div");
+    for (let i = 0; i < 3; i++) {
+        let li = document.createElement("li");
+        for (let i = 0; i < 3; i++) {
+            let span = document.createElement("span")
+            li.appendChild(span);
+        }
+        div2.appendChild(li);
+    }
+    div.className = "jj";
+    div2.className = "kk";
+    div.appendChild(div1);
+    div.appendChild(div2);
+    off.appendChild(div);
+    off.querySelectorAll("img")[i].src = rank.list[i].coverImgUrl + "?param=172y172";
+    for (let j = 0; j < 3; j++) {
+        document.querySelectorAll(".kk")[i].querySelectorAll("li")[j].querySelectorAll("span")[0].innerHTML = j + 1;
+        document.querySelectorAll(".kk")[i].querySelectorAll("li")[j].querySelectorAll("span")[1].innerHTML = rank.list[i].tracks[j].first;
+        document.querySelectorAll(".kk")[i].querySelectorAll("li")[j].querySelectorAll("span")[2].innerHTML = rank.list[i].tracks[j].second;
+    }
+}
+for (let i = 4; i < rank.list.length; i++) {
+    let div = document.createElement("div");
+    let img = document.createElement("img");
+    img.src = rank.list[i].coverImgUrl + "?param=172y172";
+    let span = document.createElement("li");
+    span.innerHTML = rank.list[i].name;
+    div.appendChild(img);
+    div.appendChild(span);
+    div.className = "aa"
+    world.append(div);
+}
+for (let i = 4; i < rank.list.length; i++) {
+    // world.querySelectorAll("img")[i].src = rank.list[i].coverImgUrl + "?param=172y172";
+    // world.querySelectorAll("li")[i].innerHTML = rank.list[i].name;
+}
+for (let i = 0; i < rank.list.length; i++) {
+    document.querySelector(".rank").querySelectorAll("img")[i].addEventListener("click", async() => {
+        document.querySelector(".rank").style.display = 'none';
+        const tbody = document.querySelector("tbody");
+        if (like) {
+            for (let i = 0; i < tbody.querySelectorAll("tr").length; i++) {
+                tbody.removeChild(tbody.querySelectorAll("tr")[i]);
+                like = false;
+            }
+        }
+        like = true;
+        var j = i;
+        document.querySelector(".find").style.display = 'none'
+            // recommend.style.display = 'none';
+        recom.style.display = 'block';
+        var re1;
+        if (jack) {
+            const res4 = await res("/recommend/resource?cookie=" + cookie);
+            const music1 = await res4.json(value => { return value });
+            var re3 = await res("/playlist/detail?s=30&id=" + music1.recommend[i].id);
+            re1 = await re3.json().then(value => { return value });
+        } else {
+            var re = await res("/playlist/detail?s=30&id=" + rank.list[i].id);
+            var re2 = await re.json().then(value => { return value });
+            re1 = re2;
+        }
+        console.log(re1);
+        introduce.querySelectorAll("div")[0].querySelector("img").src = re1.playlist.coverImgUrl + "?param=184y184";
+        icon2.querySelectorAll("li")[0].querySelectorAll("span")[1].innerHTML = re1.playlist.name;
+        icon2.querySelectorAll("li")[1].querySelectorAll("a")[0].querySelector("img").src = re1.playlist.creator.avatarUrl + "?param=24y24";
+        icon2.querySelectorAll("li")[1].querySelectorAll("a")[1].innerHTML = re1.playlist.creator.nickname;
+        icon2.querySelectorAll("li")[1].querySelector("span").innerHTML = getTime(re1.playlist.createTime);
+        icon2.querySelectorAll("li")[2].querySelectorAll("span")[1].querySelector("div").innerHTML = "+收藏(" + re1.playlist.subscribedCount + ")";
+        icon2.querySelectorAll("li")[2].querySelectorAll("span")[2].querySelector("div").innerHTML = "📣分享(" + re1.playlist.shareCount + ")";
+        for (let i = 0; i < re1.playlist.tags.length; i++) {
+            icon2.querySelectorAll("li")[3].querySelectorAll("a")[i].innerHTML = re1.playlist.tags[i];
+        }
+        icon2.querySelectorAll("li")[4].querySelectorAll("span")[0].innerHTML = re1.playlist.trackCount;
+        icon2.querySelectorAll("li")[4].querySelectorAll("span")[1].innerHTML = parseInt(re1.playlist.playCount / 10000) + "万";
+        icon2.querySelectorAll("li")[5].querySelector("span").innerHTML = re1.playlist.description;
+        // document.querySelector(".subscribers").querySelector("img").src = re1.playlist.subscribers[0].avatarUrl + "?param=90y90"
+        const limit = re1.playlist.commentCount;
+        comments.querySelectorAll("h5")[1].innerHTML = "最新评论(" + limit + ")";
+        itemk[1].innerHTML = "评论(" + limit + ")";
+        const ra = await res("/comment/playlist?&limit=" + limit + "&id=" + re1.playlist.id);
+        const ra1 = await ra.json().then(value => { return value });
+        // 评论内容
+        const say1 = document.querySelector(".say1");
+        const say2 = document.querySelector(".say2");
+        // (1).精彩评论
+        if (ra1.hotComments.length === 0) {
+            document.querySelectorAll("h5")[0].style.display = 'none';
+        }
+        for (let i = 0; i < ra1.hotComments.length; i++) {
+            let li = document.createElement("li");
+            for (let i = 0; i < 7; i++) {
+                let span = document.createElement("span");
+                li.appendChild(span);
+            }
+            say1.appendChild(li);
+            let img = document.createElement("img");
+            say1.querySelectorAll("li")[i].querySelectorAll("span")[0].appendChild(img);
+            say1.querySelectorAll("li")[i].querySelectorAll("span")[0].querySelector("img").src = ra1.hotComments[i].user.avatarUrl + "?param=36y36";
+            say1.querySelectorAll("li")[i].querySelectorAll("span")[1].innerHTML = ra1.hotComments[i].user.nickname + ":";
+            say1.querySelectorAll("li")[i].querySelectorAll("span")[2].innerHTML = ra1.hotComments[i].content;
+            say1.querySelectorAll("li")[i].querySelectorAll("span")[3].innerHTML = getT(ra1.hotComments[i].time);
+            say1.querySelectorAll("li")[i].querySelectorAll("span")[4].innerHTML = "举报";
+            say1.querySelectorAll("li")[i].addEventListener("mouseover", () => {
+                say1.querySelectorAll("li")[i].querySelectorAll("span")[4].style.display = 'block'
+            })
+            say1.querySelectorAll("li")[i].addEventListener("mouseout", () => {
+                say1.querySelectorAll("li")[i].querySelectorAll("span")[4].style.display = 'none'
+            })
+        }
+        // (2).最新评论
+        if (ra1.comments.length === 0) {
+            document.querySelectorAll("h5")[1].style.display = 'none';
+        }
+        for (let i = 0; i < ra1.comments.length; i++) {
+            let li = document.createElement("li");
+            for (let i = 0; i < 7; i++) {
+                let span = document.createElement("span");
+                li.appendChild(span);
+            }
+            say2.appendChild(li);
+            let img = document.createElement("img");
+            say2.querySelectorAll("li")[i].querySelectorAll("span")[0].appendChild(img);
+            say2.querySelectorAll("li")[i].querySelectorAll("span")[0].querySelector("img").src = ra1.comments[i].user.avatarUrl + "?param=36y36";
+            say2.querySelectorAll("li")[i].querySelectorAll("span")[1].innerHTML = ra1.comments[i].user.nickname + ":";
+            say2.querySelectorAll("li")[i].querySelectorAll("span")[2].innerHTML = ra1.comments[i].content;
+            say2.querySelectorAll("li")[i].querySelectorAll("span")[3].innerHTML = getT(ra1.comments[i].time);
+            say2.querySelectorAll("li")[i].querySelectorAll("span")[4].innerHTML = "举报";
+            say2.querySelectorAll("li")[i].addEventListener("mouseover", () => {
+                say2.querySelectorAll("li")[i].querySelectorAll("span")[4].style.display = 'block'
+            })
+            say2.querySelectorAll("li")[i].addEventListener("mouseout", () => {
+                say2.querySelectorAll("li")[i].querySelectorAll("span")[4].style.display = 'none'
+            })
+        }
+        for (let i = 0; i < re1.playlist.trackIds.length; i++) {
+            let tr = document.createElement("tr");
+            let td = document.createElement("td");
+            for (let i = 0; i < 7; i++) {
+                let span = document.createElement("span");
+                td.appendChild(span);
+            }
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+        }
+        for (let i = 0; i < re1.playlist.trackIds.length; i++) {
+            const musc = await musSay(re1.playlist.trackIds[i].id);
+            const mmm = document.querySelector("tbody").querySelectorAll("tr")[i].querySelector("td").querySelectorAll("span");
+            if ((i + 1) < 10) {
+                mmm[0].innerHTML = "0" + (i + 1);
+            } else {
+                mmm[0].innerHTML = (i + 1);
+            }
+            document.querySelector(".audio").src = musc.url;
+            document.querySelector(".audio").addEventListener("canplaythrough", () => {
+                mmm[6].innerHTML = getMuc(document.querySelector(".audio").duration);
+            })
+            mmm[1].innerHTML = "ღ";
+            mmm[2].innerHTML = "↓";
+            mmm[3].innerHTML = musc.name;
+            mmm[4].innerHTML = musc.acname;
+            mmm[5].innerHTML = musc.nikname;
+            // mmm[6].innerHTML = musc.time;
+        }
+        // 点击歌单歌曲更换播放器内容并播放
+        let x;
+        for (let i = 0; i < re1.playlist.trackIds.length; i++) {
+            tbody.querySelectorAll("tr")[i].addEventListener("click", async() => {
+                x = i;
+                const musc = await mus(re1.playlist.trackIds[i].id);
+                document.querySelector(".item1").querySelectorAll("span")[0].querySelector("img").src = musc.songs[0].al.picUrl;
+                document.querySelectorAll(".im")[0].innerHTML = musc.songs[0].name;
+                document.querySelector(".act").innerHTML = musc.songs[0].ar[0].name;
+                const jjj = await muss(re1.playlist.trackIds[i].id);
+                audio.src = jjj.data[0].url;
+                audio.addEventListener("canplaythrough", async() => {
+                    clearInterval(timer2);
+                    flag = true;
+                    play.click();
+                    audio.play();
+                    document.querySelector(".end").innerHTML = getMuc(audio.duration);
+                })
+            })
+        }
+        // (1).上一首
+        let trs = tbody.querySelectorAll("tr");
+        left.addEventListener("click", async() => {
+            if (x == 0) {
+                trs[trs.length - 1].click();
+            } else {
+                trs[x - 1].click();
+            }
+        });
+        // (2).下一首
+        right.addEventListener("click", () => {
+            if (x == trs.length - 1) {
+                trs[0].click();
+            } else {
+                trs[x + 1].click();
+            }
+        });
+        //自动播放下一首不行
+        if (parseInt(audio.duration) == parseInt(audio.currentTime)) {
+            alert(1);
+            right.click();
+        }
+    })
+}
 
 function res(api) {
     const a = fetch("http://redrock.udday.cn:2022" + api, {

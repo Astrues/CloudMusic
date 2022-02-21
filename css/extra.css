@@ -611,6 +611,10 @@ h5 {
     border-radius: 50%;
 }
 
+.park>div:hover>span {
+    display: block;
+}
+
 .lect {
     display: none;
     position: fixed;
@@ -923,4 +927,72 @@ h5 {
 
 .mult>div>li:hover {
     background-color: #f3f3f3;
+}
+
+.rank {
+    display: none;
+    position: relative;
+    width: 1700px;
+    background-color: #ffffff;
+    top: 130px;
+    left: 200px;
+    /* z-index: 5; */
+}
+
+.off {
+    /* position: absolute; */
+    margin-left: 300px;
+}
+
+.rank>span {
+    font-size: 26px;
+    font-weight: 700;
+    margin-left: 300px;
+}
+
+.rank>.off>div {
+    margin-top: 20px;
+    display: flex;
+}
+
+.rank img {
+    cursor: pointer;
+}
+
+.off>div>.kk>li {
+    width: 1200px;
+    height: 32px;
+}
+
+.off>div>.kk>li:nth-child(2n+1) {
+    background-color: #f9f9f9;
+}
+
+.off>div>.kk>li:hover {
+    background-color: #f4f4f4;
+}
+
+.off>div>.kk>li>span {
+    float: left;
+    margin-left: 50px;
+    /* position: absolute; */
+    cursor: default;
+}
+
+.kk>li>span:nth-child(1) {
+    color: #ef6941;
+}
+
+.kk>li>span:nth-child(3) {
+    color: #9b9b9b;
+}
+
+.aa {
+    position: relative;
+    float: left;
+    margin: 20px;
+}
+
+.aa>span {
+    position: absolute;
 }
