@@ -1206,7 +1206,6 @@ setInterval(() => {
     bar.style.left = parseInt(audio.currentTime / audio.duration * 370) + "px"
 }, 1000);
 // 音量调整
-// audio.addEventListener("canplaythrough", () => {
 var an = document.querySelector(".an");
 var ying = document.querySelector(".ying");
 var zong = document.querySelector(".zong");
