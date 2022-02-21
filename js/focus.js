@@ -94,7 +94,7 @@ window.addEventListener("load", () => {
         }
         ol.children[circle].className = 'current';
     }
-    // 自动轮播效果
+    // 自动轮播效果//
     var timer = setInterval(() => {
         arrow_r.click();
     }, 3000);
