@@ -975,7 +975,6 @@ h5 {
 .off>div>.kk>li>span {
     float: left;
     margin-left: 50px;
-    /* position: absolute; */
     cursor: default;
 }
 
