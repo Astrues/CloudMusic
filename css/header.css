@@ -72,7 +72,7 @@ header input::-webkit-input-placeholder {
 }
 
 
-/* 右 */
+/* 右. */
 
 header ul:nth-child(2) {
     position: relative;
