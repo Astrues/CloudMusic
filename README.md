@@ -76,6 +76,6 @@ audio的 canplaythough 来获得，但是在for循环里面的异步函数，能
 
 ![12](./rm/image/14.png)
 
-
+歌手榜单没有做
 
 ![www](./rm/image/www.jpg)
