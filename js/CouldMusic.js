@@ -1277,10 +1277,6 @@ for (let i = 4; i < rank.list.length; i++) {
     div.className = "aa"
     world.append(div);
 }
-for (let i = 4; i < rank.list.length; i++) {
-    // world.querySelectorAll("img")[i].src = rank.list[i].coverImgUrl + "?param=172y172";
-    // world.querySelectorAll("li")[i].innerHTML = rank.list[i].name;
-}
 for (let i = 0; i < rank.list.length; i++) {
     document.querySelector(".rank").querySelectorAll("img")[i].addEventListener("click", async() => {
         document.querySelector(".rank").style.display = 'none';
